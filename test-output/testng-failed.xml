@@ -7,13 +7,13 @@
   <test thread-count="5" name="Test(failed)">
     <parameter name="browser" value="chrome"/>
     <classes>
-      <class name="com.cms.testcases.UserTest">
+      <class name="com.cms.testcases.NegativeTimesheetSubmissionApproval_TaskHrGreater">
         <methods>
-          <include name="openUrl"/>
-          <include name="ValidateAddTaskFunctionalityAfterClockOut"/>
           <include name="closebrowser"/>
+          <include name="ValidateTimesheetSubmissionFunctionality"/>
+          <include name="openUrl"/>
         </methods>
-      </class> <!-- com.cms.testcases.UserTest -->
+      </class> <!-- com.cms.testcases.NegativeTimesheetSubmissionApproval_TaskHrGreater -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->
