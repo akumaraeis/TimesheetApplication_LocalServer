@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+    <Appenders>
+        <!-- Console Appender -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %msg%n"/>
+        </Console>
+
+        <!-- Single Rolling File Appender -->
+        <RollingFile name="FileLogger"
+                     fileName="logs/automation.log"
+                     filePattern="logs/archive/automation-%d{yyyy-MM-dd-HH-mm-ss}.log">
+
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %msg%n"/>
+            <Policies>
+                <!-- Rotate file only when it exceeds 10MB -->
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="FileLogger"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
