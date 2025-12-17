@@ -4,11 +4,11 @@
 							<listeners>
 		<listener class-name="com.cms.listener.Listener"/>
 	</listeners>
-
   <test thread-count="5" name="Test">
-	      <parameter name="browser" value="chrome"/>
-    <classes>
-      <class name="com.cms.testcases.CopyTimesheetSubmissionTest"/>
+	    <parameter name="browser" value="chrome"/>
+	     <classes>
+	          <class name="com.cms.testcases.PositiveScenarioTimesheetSubmissionApproval"/>
     </classes>
-  </test> <!-- Test -->
+   </test> <!-- Test -->
+  
 </suite> <!-- Suite -->

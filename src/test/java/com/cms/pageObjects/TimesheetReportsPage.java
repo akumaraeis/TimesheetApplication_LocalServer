@@ -43,7 +43,7 @@ public class TimesheetReportsPage extends BaseTest{
 	@FindBy(xpath="//*[contains(text(),\"Next\")]")
 	private WebElement Next_btn ; 
 	
-	@FindBy(xpath="//a[normalize-space()='Timesheet Reports']")
+	@FindBy(xpath="//span[normalize-space()='Reports']")
 	private WebElement TimesheetReports ; 
 	
 	@FindBy(xpath="//input[@id='report-by-week']")

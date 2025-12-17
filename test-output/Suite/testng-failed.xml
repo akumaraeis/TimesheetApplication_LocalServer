@@ -7,13 +7,13 @@
   <test thread-count="5" name="Test(failed)">
     <parameter name="browser" value="chrome"/>
     <classes>
-      <class name="com.cms.testcases.NegativeTimesheetSubmissionApproval_TaskHrGreater">
+      <class name="com.cms.testcases.StructuredNegativeScenarioTimesheetSubmissionApproval_MissingClockOut2">
         <methods>
+          <include name="shouldnotSubmitTimesheet_whenClockisMissing"/>
           <include name="closebrowser"/>
-          <include name="ValidateTimesheetSubmissionFunctionality"/>
           <include name="openUrl"/>
         </methods>
-      </class> <!-- com.cms.testcases.NegativeTimesheetSubmissionApproval_TaskHrGreater -->
+      </class> <!-- com.cms.testcases.StructuredNegativeScenarioTimesheetSubmissionApproval_MissingClockOut2 -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

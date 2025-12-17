@@ -43,7 +43,7 @@ public class UsersPage extends BaseTest{
 	@FindBy(xpath="//*[contains(text(),\"Next\")]")
 	private WebElement Next_btn ; 
 	
-	@FindBy(xpath="//a[normalize-space()='Users']")
+	@FindBy(xpath="//span[normalize-space()='People']")
 	private WebElement Users ; 
 	
 	@FindBy(xpath="//*[contains(text(),'AutomationTesting')]/following-sibling::small")
@@ -58,7 +58,7 @@ public class UsersPage extends BaseTest{
 	@FindBy(xpath="//button[normalize-space()='Search']")
 	private WebElement SearchBtn ; 
 		
-	@FindBy(xpath="//*[@class=\"fw-bold text-end\"]//following::td[1]")
+	@FindBy(xpath="//*[@class=\"align-middle fw-bold text-end\"]//following::td[1]")
 	private WebElement UserNameonList ; 
 	
 	@FindBy(xpath="//button[normalize-space()='Actions']")
@@ -171,15 +171,21 @@ public class UsersPage extends BaseTest{
 		Utility.safeClick(driver2, js, SearchBtn);
 	}
 	
-	public void ClickonActionOption() throws InterruptedException
+	public void ClickonActionBtn() throws InterruptedException
 	{
 		JavascriptExecutor js = (JavascriptExecutor)driverR;
 		Utility.ExplicitWait(ActionBtn);	
 		Utility.showCallout2("it will click on ActionBtn", ActionBtn);
 		Utility.safeClick(driver2, js, ActionBtn);
 		Utility.waitForSeconds(2);
-		Utility.safeClick(driver2, js, ActionOption);		
-	    Utility.waitForSeconds(2);
+	}
+	public void ClickonActionOption() throws InterruptedException
+	{
+		JavascriptExecutor js = (JavascriptExecutor)driverR;
+		Utility.ExplicitWait(ActionOption);	
+		Utility.showCallout2("it will click on ActionBtn", ActionOption);
+		Utility.safeClick(driver2, js, ActionOption);
+		Utility.waitForSeconds(2);
 	}
 	
 	public void SendTimeIn() throws InterruptedException

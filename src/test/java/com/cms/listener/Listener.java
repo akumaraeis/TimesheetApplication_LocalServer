@@ -8,6 +8,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
+import com.cms.basetest.BaseTest;
 import com.cms.utility.Log;
 import com.cms.utility.Utility;
 
@@ -15,10 +16,14 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.io.FileHandler;
+
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.imageio.ImageIO;
 
 public class Listener implements ITestListener {
 
@@ -132,6 +137,34 @@ public class Listener implements ITestListener {
 			    test.addScreenCaptureFromPath(screenshotPath);
 			    Log.error("==== Test Failed: " + result.getName() + " ====");
 			}
+			
+/*			   Object testClass = result.getInstance();
+			    WebDriver driver = ((BaseTest) testClass).getDriver();
+
+			    if (driver == null) {
+			        System.out.println("⚠ Driver is null. Screenshot skipped.");
+			        return;
+			    }
+
+			    try {
+			        TakesScreenshot ts = (TakesScreenshot) driver;
+			        File src = ts.getScreenshotAs(OutputType.FILE);
+			        // save file
+			        String baseDir = System.getProperty("user.dir") + "\\AEIS-CMS-Screenshots\\";
+			        File dir = new File(baseDir);
+			        if (!dir.exists()) {
+			            dir.mkdirs(); // Ensure the directory exists
+			        }
+			        
+			        String destination = baseDir + "Timesheetapplication_" +System.currentTimeMillis()  + ".jpg";
+			        File finalDestination = new File(destination);
+			        BufferedImage img = ImageIO.read(src);
+		            ImageIO.write(img, "jpg", finalDestination);
+			 
+			    } catch (Exception e) {
+			        System.out.println("⚠ Screenshot capture failed: " + e.getMessage());
+			    }
+*/			    
 	    }
 
 	    @Override
