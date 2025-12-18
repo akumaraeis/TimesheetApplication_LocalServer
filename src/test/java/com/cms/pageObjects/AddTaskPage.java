@@ -159,19 +159,19 @@ public class AddTaskPage extends BaseTest{
 	@FindBy(xpath="//span[normalize-space()='Search']")
 	private WebElement SereachDate ;
 	
-	@FindBy(xpath="//*[contains(text(),'Attendance')]")
+	@FindBy(xpath="//*[contains(text(),'Clock & Attendance')]")
 	private WebElement Attendance ;
 	
 	@FindBy(xpath="(//*[contains(text(),'Time In')])[2]")
 	private WebElement TimeIn ;
 	
-	@FindBy(xpath="(//*[contains(text(),'Lunch/Break Time In')])[2]")
+	@FindBy(xpath="(//*[contains(text(),'Lunch Break IN')])")
 	private WebElement BreakIn ;
 	
-	@FindBy(xpath="(//*[contains(text(),'Lunch/Break Time Out')])[2]")
+	@FindBy(xpath="(//*[contains(text(),'Lunch Break Out')])")
 	private WebElement BreakOut ;
 	
-	@FindBy(xpath="(//*[contains(text(),'Time Out')])[4]")
+	@FindBy(xpath="(//*[contains(text(),'Time Out')])[3]")
 	private WebElement TimeOut ;
 	
 	@FindBy(xpath="//button[normalize-space()='Confirm']")
@@ -550,6 +550,7 @@ public class AddTaskPage extends BaseTest{
 	{
 		js = (JavascriptExecutor)driver2;
 		Utility.showCallout("Click on ConfirmationBtn ", TimeIn);
+		Utility.ExplicitWait(TimeIn);
 		Utility.safeClick(driver2, js, TimeIn);
 //		TimeIn.click();
 	}

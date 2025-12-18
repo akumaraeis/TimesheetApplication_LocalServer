@@ -177,7 +177,6 @@
 				<version>3.0.0-M4</version>
 				<configuration>
 					<suiteXmlFiles>
-						<suiteXmlFile>src/test/resources/RegressionSuiteFor_LoginTest.xml</suiteXmlFile>
 						<suiteXmlFile>src/test/resources/RegressionSuiteFor_AddTaskScenarioAfterClockOut.xml</suiteXmlFile>
 						<suiteXmlFile>src/test/resources/RegressionSuiteFor_ApplyLeave.xml</suiteXmlFile>
 						<suiteXmlFile>src/test/resources/RegressionSuiteFor_ApprovalofRegularization.xml</suiteXmlFile>

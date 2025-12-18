@@ -124,7 +124,7 @@ public class DashboardTest extends BaseTest {
 	}
 
 	@Test(priority=1)
-	public void ValidateAddTaskFunctionalityAfterClockOut() throws InterruptedException, IOException, ParseException
+	public void ValidateUserDashboardstatusFunctionality() throws InterruptedException, IOException, ParseException
 	{
 
 		SoftAssert sf = new SoftAssert();
@@ -169,7 +169,6 @@ public class DashboardTest extends BaseTest {
 		Utility.showTooltip("Step 4 :-> Launching Application to Clock-in user on Timesheet ");
 
 		launchLocalUrl();
-
 		Thread.sleep(2000);
 
 		lp.SendUserName();
@@ -178,6 +177,7 @@ public class DashboardTest extends BaseTest {
 
 		lp.ClickonLoginBtn();
 		Log.info("User is logged in ");
+		Thread.sleep(2000);
 //		String ActualProfileName=lp.GetProfileName();
 //		String ExpectedProfileName ="Welcome, AutomationTesting!";
 //
@@ -186,12 +186,14 @@ public class DashboardTest extends BaseTest {
 //		Utility.showTooltip("User Profile Name Validated using AutomationScript.");
 
 		att.ClickonAttendance();		
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		
 		att.ClickonTimeIn();
 		Thread.sleep(4000);
+		
 		att.ClickonConfirmationBtn();
 		Thread.sleep(2000);
+		
 		String ActualSuccessfulMsg = driverR.findElement(By.xpath("//*[contains(text(),'Attendance updated successfully!')]")).getText();
 		System.out.println("ActualSuccesful Message found :->"+ActualSuccessfulMsg);
 		String ExpectSuccessfulMsg ="Attendance updated successfully!";

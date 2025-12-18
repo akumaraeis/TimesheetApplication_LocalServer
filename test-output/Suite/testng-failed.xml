@@ -7,13 +7,14 @@
   <test thread-count="5" name="Test(failed)">
     <parameter name="browser" value="chrome"/>
     <classes>
-      <class name="com.cms.testcases.StructuredNegativeScenarioTimesheetSubmissionApproval_MissingClockOut2">
+      <class name="com.cms.testcases.DashboardTest">
         <methods>
-          <include name="shouldnotSubmitTimesheet_whenClockisMissing"/>
           <include name="closebrowser"/>
+          <include name="ValidateUserClockin"/>
           <include name="openUrl"/>
+          <include name="ValidateUserStatusChangeonDashboard"/>
         </methods>
-      </class> <!-- com.cms.testcases.StructuredNegativeScenarioTimesheetSubmissionApproval_MissingClockOut2 -->
+      </class> <!-- com.cms.testcases.DashboardTest -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

@@ -2,12 +2,12 @@
 <testng-results ignored="0" total="5" passed="5" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-12-17T15:49:52 IST" name="Suite" finished-at="2025-12-17T15:51:07 IST" duration-ms="74076">
+  <suite started-at="2025-12-18T14:13:58 IST" name="Suite" finished-at="2025-12-18T14:15:13 IST" duration-ms="74500">
     <groups>
     </groups>
-    <test started-at="2025-12-17T15:49:52 IST" name="Test" finished-at="2025-12-17T15:51:07 IST" duration-ms="74076">
+    <test started-at="2025-12-18T14:13:58 IST" name="Test" finished-at="2025-12-18T14:15:13 IST" duration-ms="74500">
       <class name="com.cms.testcases.DashboardTest">
-        <test-method is-config="true" signature="openUrl(java.lang.String)[pri:0, instance:com.cms.testcases.DashboardTest@477b4cdf]" started-at="2025-12-17T15:49:53 IST" name="openUrl" finished-at="2025-12-17T15:49:58 IST" duration-ms="4866" status="PASS">
+        <test-method is-config="true" signature="openUrl(java.lang.String)[pri:0, instance:com.cms.testcases.DashboardTest@477b4cdf]" started-at="2025-12-18T14:13:59 IST" name="openUrl" finished-at="2025-12-18T14:14:04 IST" duration-ms="5040" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -18,27 +18,27 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- openUrl -->
-        <test-method signature="DeleteTestUserRecord()[pri:0, instance:com.cms.testcases.DashboardTest@477b4cdf]" started-at="2025-12-17T15:49:58 IST" name="DeleteTestUserRecord" finished-at="2025-12-17T15:50:00 IST" duration-ms="2837" status="PASS">
+        <test-method signature="DeleteTestUserRecord()[pri:0, instance:com.cms.testcases.DashboardTest@477b4cdf]" started-at="2025-12-18T14:14:04 IST" name="DeleteTestUserRecord" finished-at="2025-12-18T14:14:06 IST" duration-ms="2371" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- DeleteTestUserRecord -->
-        <test-method signature="ValidateUser()[pri:0, instance:com.cms.testcases.DashboardTest@477b4cdf]" started-at="2025-12-17T15:50:01 IST" name="ValidateUser" finished-at="2025-12-17T15:50:13 IST" duration-ms="12458" status="PASS">
+        <test-method signature="ValidateUser()[pri:0, instance:com.cms.testcases.DashboardTest@477b4cdf]" started-at="2025-12-18T14:14:06 IST" name="ValidateUser" finished-at="2025-12-18T14:14:19 IST" duration-ms="12529" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- ValidateUser -->
-        <test-method signature="ValidateAddTaskFunctionalityAfterClockOut()[pri:1, instance:com.cms.testcases.DashboardTest@477b4cdf]" started-at="2025-12-17T15:50:14 IST" name="ValidateAddTaskFunctionalityAfterClockOut" finished-at="2025-12-17T15:50:30 IST" duration-ms="16173" status="PASS">
+        <test-method signature="ValidateUserDashboardstatusFunctionality()[pri:1, instance:com.cms.testcases.DashboardTest@477b4cdf]" started-at="2025-12-18T14:14:19 IST" name="ValidateUserDashboardstatusFunctionality" finished-at="2025-12-18T14:14:35 IST" duration-ms="16292" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- ValidateAddTaskFunctionalityAfterClockOut -->
-        <test-method signature="ValidateUserClockin()[pri:2, instance:com.cms.testcases.DashboardTest@477b4cdf]" started-at="2025-12-17T15:50:30 IST" name="ValidateUserClockin" finished-at="2025-12-17T15:50:49 IST" duration-ms="18393" status="PASS">
+        </test-method> <!-- ValidateUserDashboardstatusFunctionality -->
+        <test-method signature="ValidateUserClockin()[pri:2, instance:com.cms.testcases.DashboardTest@477b4cdf]" started-at="2025-12-18T14:14:35 IST" name="ValidateUserClockin" finished-at="2025-12-18T14:14:56 IST" duration-ms="20950" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- ValidateUserClockin -->
-        <test-method signature="ValidateUserStatusChangeonDashboard()[pri:3, instance:com.cms.testcases.DashboardTest@477b4cdf]" started-at="2025-12-17T15:50:49 IST" name="ValidateUserStatusChangeonDashboard" finished-at="2025-12-17T15:51:05 IST" duration-ms="16157" status="PASS">
+        <test-method signature="ValidateUserStatusChangeonDashboard()[pri:3, instance:com.cms.testcases.DashboardTest@477b4cdf]" started-at="2025-12-18T14:14:56 IST" name="ValidateUserStatusChangeonDashboard" finished-at="2025-12-18T14:15:12 IST" duration-ms="16209" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- ValidateUserStatusChangeonDashboard -->
-        <test-method is-config="true" signature="closebrowser()[pri:0, instance:com.cms.testcases.DashboardTest@477b4cdf]" started-at="2025-12-17T15:51:06 IST" name="closebrowser" finished-at="2025-12-17T15:51:07 IST" duration-ms="892" status="PASS">
+        <test-method is-config="true" signature="closebrowser()[pri:0, instance:com.cms.testcases.DashboardTest@477b4cdf]" started-at="2025-12-18T14:15:12 IST" name="closebrowser" finished-at="2025-12-18T14:15:13 IST" duration-ms="871" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- closebrowser -->
