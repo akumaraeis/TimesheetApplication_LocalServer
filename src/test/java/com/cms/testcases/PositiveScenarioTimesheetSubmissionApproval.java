@@ -33,7 +33,7 @@ import com.cms.utility.Utility;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
-public class TimesheetSubmissionApproval extends BaseTest {
+public class PositiveScenarioTimesheetSubmissionApproval extends BaseTest {
 	public SoftAssert sf;
 	public SoftAssert sf2;
 	public JavascriptExecutor js;
@@ -55,7 +55,8 @@ public class TimesheetSubmissionApproval extends BaseTest {
 	public String ExpectTimesheetApproveMsg;
 	public String dateStr;
 	public WebDriverWait wait;
-	
+	public String startText;
+	public String endText;
 	@BeforeClass
 	@Parameters("browser")
 	public void openUrl(String browser) throws IOException
@@ -141,27 +142,29 @@ public class TimesheetSubmissionApproval extends BaseTest {
 //		// API Login
 
 		Utility.showTooltip("Step 3 :-> After Selecting Week, Timesheet Entry from (Mon–Fri) are created in Background using API RestAssured");
-		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy");
 
-	        LocalDate today = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy");
+		
+		LocalDate today = LocalDate.now();
 
-	        // Previous week's Monday
-	        LocalDate previousWeekMonday = today
-	                .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
-	                .minusWeeks(1);
+		// Previous week's Monday
+		LocalDate previousWeekMonday = today
+		        .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
+		        .minusWeeks(1);
 
-	        // Current week's Friday
-	        LocalDate thisWeekFriday = today
-	                .with(TemporalAdjusters.nextOrSame(DayOfWeek.FRIDAY));
+		// Previous week's Friday (Monday + 4 days)
+		LocalDate previousWeekFriday = previousWeekMonday.plusDays(4);
 
-	        // Format results
-	        String prevMondayText = previousWeekMonday.format(formatter);
-	        String thisFridayText = thisWeekFriday.format(formatter);
+		// Format results
+		String prevMondayText = previousWeekMonday.format(formatter);
+		String prevFridayText = previousWeekFriday.format(formatter);
 
-	        System.out.println("Previous Week Monday: " + prevMondayText);
-	        System.out.println("This Week Friday   : " + thisFridayText);
-		String startText = prevMondayText;
-		String endText   = "Nov 14, 2025";
+		System.out.println("Previous Week Monday: " + prevMondayText);
+		System.out.println("Previous Week Friday: " + prevFridayText);
+	     startText = prevMondayText;
+	     System.out.println("Previous week Monday :->"+startText);
+	     endText   = prevFridayText;
+	     System.out.println("Previous week Friday :->"+endText);
 
 		DateTimeFormatter inputFormatter2 = DateTimeFormatter.ofPattern("MMM dd, yyyy", Locale.ENGLISH);
 		LocalDate startDate = LocalDate.parse(startText, inputFormatter);
@@ -217,6 +220,7 @@ public class TimesheetSubmissionApproval extends BaseTest {
 						MinimizeBtn2.click();
 						WebElement addTaskBtn = driverR.findElement(By.xpath("(//*[contains(text(),'Add New Task')])["+i+"]"));
 						Utility.scrollIntoView(driverR, js, addTaskBtn);
+						wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
 						wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
 						wait.until(ExpectedConditions.elementToBeClickable(addTaskBtn));
 						Utility.safeClick(driverR, js, addTaskBtn);
@@ -357,9 +361,17 @@ public class TimesheetSubmissionApproval extends BaseTest {
 	Utility.showTooltip("Step 7:->After Selecting Respective Week,then select same Timesheet Report Sent by The User using Automation Script ");
 	Utility.waitForSeconds(3);
 	
-	outerloop:
-	for (int index = 2; index <= totalWeeks; index++) {
-		String weekXPath = "(//div[contains(@class,'p-1 shadow mb-2 border-secondary bg-gradient week')])[" + index + "]";
+	DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM d, yyyy");
+	DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+
+	LocalDate date = LocalDate.parse(startText, inputFormatter);
+	LocalDate weekStartDate = date.minusDays(2);
+
+	String finalDate = weekStartDate.format(outputFormatter);	
+	
+//	outerloop:
+//	for (int index = 2; index <= totalWeeks; index++) {
+		String weekXPath = "//span[contains(text(),'"+finalDate+"')]";
 		WebElement weekElement = driverR.findElement(By.xpath(weekXPath));
 		js = (JavascriptExecutor) driverR;
 		js.executeScript("arguments[0].scrollIntoView(true);", weekElement);
@@ -425,7 +437,7 @@ public class TimesheetSubmissionApproval extends BaseTest {
 			            sf.assertEquals(ActualTimesheetApproveMsg, ExpectTimesheetApproveMsg);
 			            Log.info("User Timesheet Approved successf2ully by Line Manager");
 
-			            break outerloop; // ✅ Exit loop once done
+//			            break outerloop; // ✅ Exit loop once done
 			        } else {
 			            System.out.println("❌ No Timesheet Submitted for User: " + UserName);
 			        }
@@ -447,7 +459,7 @@ public class TimesheetSubmissionApproval extends BaseTest {
 			    }
 				
 			}
-}
+
 	sf.assertAll();
 }
 
@@ -529,15 +541,6 @@ public class TimesheetSubmissionApproval extends BaseTest {
 
 		teardown();
 	}
-
 }
-
-
-	//	}
-
-
-
-
-
 
 

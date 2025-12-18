@@ -144,32 +144,32 @@ public class NegativeScenarioTimesheetSubmissionApproval_MissingClockOut extends
 		Utility.showTooltip("Step 3 :-> After Selecting Week, Timesheet Entry from (Mon–Fri) are created in Background using API RestAssured");
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy");
+		
+		LocalDate today = LocalDate.now();
 
-        LocalDate today = LocalDate.now();
+		// Previous week's Monday
+		LocalDate previousWeekMonday = today
+		        .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
+		        .minusWeeks(1);
 
-        // Previous week's Monday
-        LocalDate previousWeekMonday = today
-                .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
-                .minusWeeks(1);
+		// Previous week's Friday (Monday + 4 days)
+		LocalDate previousWeekFriday = previousWeekMonday.plusDays(4);
 
-        // Current week's Friday
-        LocalDate thisWeekFriday = today
-                .with(TemporalAdjusters.previousOrSame(DayOfWeek.FRIDAY));
+		// Format results
+		String prevMondayText = previousWeekMonday.format(formatter);
+		String prevFridayText = previousWeekFriday.format(formatter);
 
-        // Format results
-        String prevMondayText = previousWeekMonday.format(formatter);
-        String thisFridayText = thisWeekFriday.format(formatter);
-
-        System.out.println("Previous Week Monday: " + prevMondayText);
-        System.out.println("This Week Friday   : " + thisFridayText);
+		System.out.println("Previous Week Monday: " + prevMondayText);
+		System.out.println("Previous Week Friday: " + prevFridayText);
 	     startText = prevMondayText;
-	     endText   = thisFridayText;
-
+	     System.out.println("Previous week Monday :->"+startText);
+	     endText   = prevFridayText;
+	     System.out.println("Previous week Friday :->"+endText);
 
 		DateTimeFormatter inputFormatter2 = DateTimeFormatter.ofPattern("MMM dd, yyyy", Locale.ENGLISH);
 		LocalDate startDate = LocalDate.parse(startText, inputFormatter);
 		LocalDate endDate   = LocalDate.parse(endText, inputFormatter);
-		
+
 		System.out.println("Parsed Start Date: " + startDate + " | End Date: " + endDate);
 
 		DateTimeFormatter outputFormatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -200,7 +200,7 @@ public class NegativeScenarioTimesheetSubmissionApproval_MissingClockOut extends
 		    Log.info("Timesheet entry created successfully for date → " + dateStr);
 		}
 		
-      System.out.println("now script will start adding task");
+                System.out.println("now script will start adding task");
 		        Utility.waitForSeconds(2);
 				// Add task and submit timesheet
 		        driverR.navigate().refresh();

@@ -28,7 +28,7 @@ public class Utility extends BaseTest {
 	
 	
 	 public static String captureScreenshot(String testName, String status) {
-	        TakesScreenshot ts = (TakesScreenshot) driverR;
+	        TakesScreenshot  ts = (TakesScreenshot) driverR;
 	        File source = ts.getScreenshotAs(OutputType.FILE);
 	        
 	        // Dynamic path for screenshot storage

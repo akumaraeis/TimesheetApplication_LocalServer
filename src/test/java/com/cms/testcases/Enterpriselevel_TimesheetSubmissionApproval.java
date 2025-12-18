@@ -33,7 +33,7 @@ import com.cms.utility.Utility;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
-public class FinalTimesheetSubmissionApproval extends BaseTest {
+public class Enterpriselevel_TimesheetSubmissionApproval extends BaseTest {
 	public SoftAssert sf;
 	public SoftAssert sf2;
 	public JavascriptExecutor js;
@@ -73,7 +73,7 @@ public class FinalTimesheetSubmissionApproval extends BaseTest {
 		//		Thread.sleep(2000);
 		LaunchUrl();
 	}
-	@Test(priority=1)
+	@Test(priority=0)
 	public void DeleteTestUserRecord() throws InterruptedException, IOException
 	{
 
@@ -92,15 +92,20 @@ public class FinalTimesheetSubmissionApproval extends BaseTest {
 
 	}
 
+	@Test(priority=1)
+	public void shouldnotallowtimesheetsubmissionWhenClockOut_Missing() throws IOException, InterruptedException
 
-	@Test(priority=2)
-	public void ValidateTimesheetSubmissionFunctionality() throws InterruptedException, IOException
 	{
 		sf = new SoftAssert();
-		Utility.showTooltip("Executing Automation Script to Check Timesheet Submission by User and Approval Functionality by Line Manager.");
-
-		Utility.waitForSeconds(5);
-		
+		loginAsEmployee();
+		creatingAttendanceForPreviousWeek();
+		addingTasktoPreviousWeek();
+		validatingTimesheetSubmission_error();
+		sf.assertAll();
+	}
+	
+	public void loginAsEmployee() throws IOException, InterruptedException
+	{
 		launchLocalUrl();
 		Log.info("Url is launched");
 
@@ -126,8 +131,12 @@ public class FinalTimesheetSubmissionApproval extends BaseTest {
 		System.out.println(ActualUserName);
 			
 		sf.assertEquals(ActualProfileName, ExpectedProfileName);
-		tsp.ClickonTimesheetSubmission();
+	}
 	
+	public void creatingAttendanceForPreviousWeek() throws InterruptedException
+	{
+		tsp.ClickonTimesheetSubmission();
+		
 		Utility.waitForSeconds(3);
 		Utility.showTooltip("Step 2:-> Selecting Respective Week to Validate Timesheet submission Using Automation Script");
         Thread.sleep(5000);
@@ -144,27 +153,27 @@ public class FinalTimesheetSubmissionApproval extends BaseTest {
 		Utility.showTooltip("Step 3 :-> After Selecting Week, Timesheet Entry from (Mon–Fri) are created in Background using API RestAssured");
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy");
+		
+		LocalDate today = LocalDate.now();
 
-        LocalDate today = LocalDate.now();
+		// Previous week's Monday
+		LocalDate previousWeekMonday = today
+		        .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
+		        .minusWeeks(1);
 
-        // Previous week's Monday
-        LocalDate previousWeekMonday = today
-                .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
-                .minusWeeks(1);
+		// Previous week's Friday (Monday + 4 days)
+		LocalDate previousWeekFriday = previousWeekMonday.plusDays(4);
 
-        // Current week's Friday
-        LocalDate thisWeekFriday = today
-                .with(TemporalAdjusters.previousOrSame(DayOfWeek.FRIDAY));
+		// Format results
+		String prevMondayText = previousWeekMonday.format(formatter);
+		String prevFridayText = previousWeekFriday.format(formatter);
 
-        // Format results
-        String prevMondayText = previousWeekMonday.format(formatter);
-        String thisFridayText = thisWeekFriday.format(formatter);
-
-        System.out.println("Previous Week Monday: " + prevMondayText);
-        System.out.println("This Week Friday   : " + thisFridayText);
+		System.out.println("Previous Week Monday: " + prevMondayText);
+		System.out.println("Previous Week Friday: " + prevFridayText);
 	     startText = prevMondayText;
-	     endText   = thisFridayText;
-
+	     System.out.println("Previous week Monday :->"+startText);
+	     endText   = prevFridayText;
+	     System.out.println("Previous week Friday :->"+endText);
 
 		DateTimeFormatter inputFormatter2 = DateTimeFormatter.ofPattern("MMM dd, yyyy", Locale.ENGLISH);
 		LocalDate startDate = LocalDate.parse(startText, inputFormatter);
@@ -191,6 +200,15 @@ public class FinalTimesheetSubmissionApproval extends BaseTest {
 		    Utility.waitForSeconds(2);
 		    Log.info("Timesheet entry created successfully for date → " + dateStr);
 		}
+	}
+	
+	public void addingTasktoPreviousWeek() throws InterruptedException
+	{
+		Utility.showTooltip("Executing Automation Script to Check Timesheet Submission by User and Approval Functionality by Line Manager.");
+
+		Utility.waitForSeconds(5);
+		
+
 		        System.out.println("now script will start adding task");
 		        Utility.waitForSeconds(2);
 				// Add task and submit timesheet
@@ -249,70 +267,70 @@ public class FinalTimesheetSubmissionApproval extends BaseTest {
 					}
 				}
 
-				Utility.showTooltip("Step 5:-> After adding Task, submitting this weekly Timesheet using Automation Script");
-				// Submit timesheet
-				try {
-//					WebElement actionsBtn = Utility.waitForElementToBeClickable(driverR, By.xpath("//button[normalize-space()='Actions']"), 10);
-//					Utility.scrollIntoView(driverR, js, actionsBtn);
-//					Utility.showCallout2("Click on actions Button ", actionsBtn);
-//					Utility.waitForSeconds(1);
-//					Utility.safeClick(driverR, js, actionsBtn);
-//					Utility.waitForSeconds(2);
-//					Log.info("Script click on Action Button");
-					
-					WebElement submitBtn = Utility.waitForElementToBeClickable(driverR, By.xpath("//button[normalize-space()='Submit Timesheet']"), 10);
-					Utility.scrollIntoView(driverR, js, submitBtn);
-					Utility.showCallout2("Click on Submit Button ", submitBtn);
-					Utility.waitForSeconds(1);
-//               	Utility.highlightElement(submitBtn);
-					Utility.safeClick(driverR, js, submitBtn);
-					Utility.waitForSeconds(2);
-					Log.info("Script click on Submit Button");
-
-					WebElement confirmSubmit = Utility.waitForElementToBeClickable(driverR, By.xpath("//button[normalize-space()='Submit']"), 10);
-					Utility.scrollIntoView(driverR, js, confirmSubmit);
-					Utility.showCallout("Click on Confirm Button Using Automation Script", confirmSubmit);
-					Utility.highlightElement(confirmSubmit);
-					Utility.safeClick(driverR, js, confirmSubmit);
-					Utility.waitForSeconds(2);
-					System.out.println("✅ Timesheet submitted for week " + 2);
-
-					WebElement confirmMsg = driverR.findElement(By.xpath("//*[contains(text(),'Timesheet submitted successfully!')]"));
-					Utility.ExplicitWait(confirmMsg);
-					Utility.highlightElement(confirmMsg);
-					String ActualTimesheetSuccesful = confirmMsg.getText();
-					System.out.println("Timesheet submission Succesful Message :-> " + ActualTimesheetSuccesful);
-					String ExpectTimesheetSuccesful ="Timesheet submitted successfully!";
-					sf.assertEquals(ActualTimesheetSuccesful, ExpectTimesheetSuccesful);
-					Log.info("Timesheet Submitted for this Respective week Successfully");
-					// Check final status after submission
-					driverR.navigate().refresh();
-					Utility.waitForSeconds(2);
-
-//					WebElement finalWeek = Utility.waitForElementToBeClickable(driverR, By.xpath(weekXPath), 10);
-//					Utility.scrollIntoView(driverR, js, finalWeek);
-//					Utility.safeClick(driverR, js, finalWeek);
-//					WebElement finalStatus = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(@class,'bg-warning rounded text-black')]")));
-//					String newStatus = finalStatus.getText().replace("\u00A0", " ").trim();
-//					System.out.println("🟢 Post-Submission Status: '" + newStatus + "'");
-
-//					if (newStatus.equalsIgnoreCase("SUBMITTED")) {
-//						System.out.println("✅ Submission confirmed. Stopping further processing.");
-//						break; // STOP the main loop
-//					}
-
-				} catch (Exception e) {
-					System.out.println("⚠️ Error during final submission: " + e.getMessage());
-
-				}
-
-			
-			
-		
-		sf.assertAll();
 	}
 
+	public void validatingTimesheetSubmission_error() throws InterruptedException
+	{
+		Utility.showTooltip("Step 5:-> After adding Task, submitting this weekly Timesheet using Automation Script");
+		// Submit timesheet
+		try {
+//			WebElement actionsBtn = Utility.waitForElementToBeClickable(driverR, By.xpath("//button[normalize-space()='Actions']"), 10);
+//			Utility.scrollIntoView(driverR, js, actionsBtn);
+//			Utility.showCallout2("Click on actions Button ", actionsBtn);
+//			Utility.waitForSeconds(1);
+//			Utility.safeClick(driverR, js, actionsBtn);
+//			Utility.waitForSeconds(2);
+//			Log.info("Script click on Action Button");
 			
+			WebElement submitBtn = Utility.waitForElementToBeClickable(driverR, By.xpath("//button[normalize-space()='Submit Timesheet']"), 10);
+			Utility.scrollIntoView(driverR, js, submitBtn);
+			Utility.showCallout2("Click on Submit Button ", submitBtn);
+			Utility.waitForSeconds(1);
+//       	Utility.highlightElement(submitBtn);
+			Utility.safeClick(driverR, js, submitBtn);
+			Utility.waitForSeconds(2);
+			Log.info("Script click on Submit Button");
+
+			WebElement confirmSubmit = Utility.waitForElementToBeClickable(driverR, By.xpath("//button[normalize-space()='Submit']"), 10);
+			Utility.scrollIntoView(driverR, js, confirmSubmit);
+			Utility.showCallout("Click on Confirm Button Using Automation Script", confirmSubmit);
+			Utility.highlightElement(confirmSubmit);
+			Utility.safeClick(driverR, js, confirmSubmit);
+			Utility.waitForSeconds(2);
+			System.out.println("✅ Timesheet submitted for week " + 2);
+
+			WebElement confirmMsg = driverR.findElement(By.xpath("//*[contains(text(),'Timesheet submitted successfully!')]"));
+			Utility.ExplicitWait(confirmMsg);
+			Utility.highlightElement(confirmMsg);
+			String ActualTimesheetSuccesful = confirmMsg.getText();
+			System.out.println("Timesheet submission Succesful Message :-> " + ActualTimesheetSuccesful);
+			String ExpectTimesheetSuccesful ="Timesheet submitted successfully!";
+			sf.assertEquals(ActualTimesheetSuccesful, ExpectTimesheetSuccesful);
+			Log.info("Timesheet Submitted for this Respective week Successfully");
+			// Check final status after submission
+			driverR.navigate().refresh();
+			Utility.waitForSeconds(2);
+
+//			WebElement finalWeek = Utility.waitForElementToBeClickable(driverR, By.xpath(weekXPath), 10);
+//			Utility.scrollIntoView(driverR, js, finalWeek);
+//			Utility.safeClick(driverR, js, finalWeek);
+//			WebElement finalStatus = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(@class,'bg-warning rounded text-black')]")));
+//			String newStatus = finalStatus.getText().replace("\u00A0", " ").trim();
+//			System.out.println("🟢 Post-Submission Status: '" + newStatus + "'");
+
+//			if (newStatus.equalsIgnoreCase("SUBMITTED")) {
+//				System.out.println("✅ Submission confirmed. Stopping further processing.");
+//				break; // STOP the main loop
+//			}
+
+		} catch (Exception e) {
+			System.out.println("⚠️ Error during final submission: " + e.getMessage());
+
+		}
+
+	
+		
+	}			
 
 	@Test(priority=3)
 	public void ValidateApproveTimesheetReportFunctionality() throws InterruptedException, IOException
@@ -361,15 +379,17 @@ public class FinalTimesheetSubmissionApproval extends BaseTest {
 	Utility.showTooltip("Step 7:->After Selecting Respective Week,then select same Timesheet Report Sent by The User using Automation Script ");
 	Utility.waitForSeconds(3);
 	
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy");
-	LocalDate date = LocalDate.parse(startText, formatter);
-	LocalDate weekstartDate = date.minusDays(2);
-	String Finaldate = weekstartDate.format(formatter);
-	
+	DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM d, yyyy");
+	DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+
+	LocalDate date = LocalDate.parse(startText, inputFormatter);
+	LocalDate weekStartDate = date.minusDays(2);
+
+	String finalDate = weekStartDate.format(outputFormatter);	
 	
 //	outerloop:
 //	for (int index = 2; index <= totalWeeks; index++) {
-		String weekXPath = "//span[contains(text(),'"+Finaldate+"')]";
+		String weekXPath = "//span[contains(text(),'"+finalDate+"')]";
 		WebElement weekElement = driverR.findElement(By.xpath(weekXPath));
 		js = (JavascriptExecutor) driverR;
 		js.executeScript("arguments[0].scrollIntoView(true);", weekElement);

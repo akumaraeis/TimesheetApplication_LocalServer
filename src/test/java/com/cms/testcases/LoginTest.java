@@ -1,5 +1,6 @@
 package com.cms.testcases;
 
+import com.cms.basetest.BaseTest;
 import java.io.IOException;
 
 import org.openqa.selenium.By;
@@ -42,8 +43,8 @@ public class LoginTest extends BaseTest {
 	@Test(priority=1)
 	public void ValidateLoginFunctionality() throws InterruptedException, IOException
 	{
-		while(true)
-		{
+//		while(true)
+//		{
 			launchLocalUrl();
 
 			Thread.sleep(2000);
@@ -72,7 +73,7 @@ public class LoginTest extends BaseTest {
 			sf.assertAll();
 		}
 
-	}
+//	}
 	//	@AfterMethod
 	public void closeURL()
 	{
@@ -87,6 +88,3 @@ public class LoginTest extends BaseTest {
 	}
 
 }
-
-
-

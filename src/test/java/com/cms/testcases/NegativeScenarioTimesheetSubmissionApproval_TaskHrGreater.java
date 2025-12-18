@@ -33,7 +33,7 @@ import com.cms.utility.Utility;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
-public class NegativeTimesheetSubmissionApproval_TaskHrLesser extends BaseTest {
+public class NegativeScenarioTimesheetSubmissionApproval_TaskHrGreater extends BaseTest {
 	public SoftAssert sf;
 	public SoftAssert sf2;
 	public JavascriptExecutor js;
@@ -142,29 +142,28 @@ public class NegativeTimesheetSubmissionApproval_TaskHrLesser extends BaseTest {
 //		// API Login
 
 		Utility.showTooltip("Step 3 :-> After Selecting Week, Timesheet Entry from (Mon–Fri) are created in Background using API RestAssured");
-
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy");
+		
+		LocalDate today = LocalDate.now();
 
-        LocalDate today = LocalDate.now();
+		// Previous week's Monday
+		LocalDate previousWeekMonday = today
+		        .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
+		        .minusWeeks(1);
 
-        // Previous week's Monday
-        LocalDate previousWeekMonday = today
-                .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
-                .minusWeeks(1);
+		// Previous week's Friday (Monday + 4 days)
+		LocalDate previousWeekFriday = previousWeekMonday.plusDays(4);
 
-        // Current week's Friday
-        LocalDate thisWeekFriday = today
-                .with(TemporalAdjusters.previousOrSame(DayOfWeek.FRIDAY));
+		// Format results
+		String prevMondayText = previousWeekMonday.format(formatter);
+		String prevFridayText = previousWeekFriday.format(formatter);
 
-        // Format results
-        String prevMondayText = previousWeekMonday.format(formatter);
-        String thisFridayText = thisWeekFriday.format(formatter);
-
-        System.out.println("Previous Week Monday: " + prevMondayText);
-        System.out.println("This Week Friday   : " + thisFridayText);
+		System.out.println("Previous Week Monday: " + prevMondayText);
+		System.out.println("Previous Week Friday: " + prevFridayText);
 	     startText = prevMondayText;
-	     endText   = thisFridayText;
-
+	     System.out.println("Previous week Monday :->"+startText);
+	     endText   = prevFridayText;
+	     System.out.println("Previous week Friday :->"+endText);
 
 		DateTimeFormatter inputFormatter2 = DateTimeFormatter.ofPattern("MMM dd, yyyy", Locale.ENGLISH);
 		LocalDate startDate = LocalDate.parse(startText, inputFormatter);
@@ -174,7 +173,7 @@ public class NegativeTimesheetSubmissionApproval_TaskHrLesser extends BaseTest {
 
 		DateTimeFormatter outputFormatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String baseTime = "04:30:00";
-
+		
 		// 🔥 Loop from startDate to endDate (inclusive)
 		for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
 
@@ -264,7 +263,7 @@ public class NegativeTimesheetSubmissionApproval_TaskHrLesser extends BaseTest {
 						att.SelectSubProcess();
 						att.ClickonActivity();
 						att.SendTaskDescription();
-						att.SendTaskDuration3();
+						att.SendTaskDuration2();
 						att.ClickonTaskSubmit();
 						Utility.waitForSeconds(1);
 

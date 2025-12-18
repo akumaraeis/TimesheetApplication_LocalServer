@@ -177,18 +177,15 @@
 				<version>3.0.0-M4</version>
 				<configuration>
 					<suiteXmlFiles>
-						<suiteXmlFile>src/test/resources/RegressionSuiteFor_LoginTest.xml</suiteXmlFile>
-						<suiteXmlFile>src/test/resources/RegressionSuiteFor_AddTimesheet.xml</suiteXmlFile>
-						<suiteXmlFile>src/test/resources/RegressionSuiteFor_EditTimesheet.xml</suiteXmlFile>
-						<suiteXmlFile>src/test/resources/RegressionSuiteFor_InvalidTimesheetEntryValidationTest.xml</suiteXmlFile>
-						<suiteXmlFile>src/test/resources/RegressionSuiteFor_TwentyFourhourValidation.xml</suiteXmlFile>
-						<suiteXmlFile>src/test/resources/RegressionSuiteFor_MultipleClockInValidation.xml</suiteXmlFile>
-						<suiteXmlFile>src/test/resources/RegressionSuiteFor_addTaskScenarioafterClockout.xml</suiteXmlFile>
-						<suiteXmlFile>src/test/resources/RegressionSuiteFor_AddTaskScenarioBeforeClockOut.xml</suiteXmlFile>
-						<suiteXmlFile>src/test/resources/RegressionSuiteFor_ValidateTimeOverlappingScenario.xml</suiteXmlFile>
-						<suiteXmlFile>src/test/resources/RegressionSuitFor_GrossTaskHourValidation.xml</suiteXmlFile>
-						<suiteXmlFile>src/test/resources/RegressionSuiteFor_TimesheetSlotMinimumValidationTest.xml</suiteXmlFile>
-						<suiteXmlFile>src/test/resources/RegressionSuiteFor_PreviousEntryClockOutScenario.xml</suiteXmlFile>					
+						<suiteXmlFile>src/test/resources/RegressionSuiteFor_AddTaskScenarioAfterClockOut.xml</suiteXmlFile>
+						<suiteXmlFile>src/test/resources/RegressionSuiteFor_ApplyLeave.xml</suiteXmlFile>
+						<suiteXmlFile>src/test/resources/RegressionSuiteFor_ApprovalofRegularization.xml</suiteXmlFile>
+						<suiteXmlFile>src/test/resources/RegressionSuiteFor_Dashboard.xml</suiteXmlFile>
+						<suiteXmlFile>src/test/resources/RegressionSuiteFor_TimesheetSubmissionApprovalscenario1.xml</suiteXmlFile>
+						<suiteXmlFile>src/test/resources/RegressionSuitefor_TimesheetSubmissionScenario2(MissingClockOut).xml</suiteXmlFile>
+						<suiteXmlFile>src/test/resources/RegressionSuitefor_TimesheetSubmissionScenario3(MissingTask).xml</suiteXmlFile>
+						<suiteXmlFile>src/test/resources/RegressionSuitefor_TimesheetSubmissionScenario4(TaskHrMorethanEffective).xml</suiteXmlFile>
+						<suiteXmlFile>src/test/resources/RegressionSuiteFor_TimesheetSubmissionScenario5(taskHrlessthanEffective).xml</suiteXmlFile>		
                    </suiteXmlFiles>
 					<systemPropertyVariables>
 						<appURL>${url}</appURL>

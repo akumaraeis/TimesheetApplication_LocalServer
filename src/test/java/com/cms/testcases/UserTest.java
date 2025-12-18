@@ -120,7 +120,7 @@ public class UserTest extends BaseTest {
 		Utility.showTooltip("Step 2 :->Now login with Line Manager Credential to Validate User status on Dashboard before user Clock-in ");
 		
 		String ActualProfileName=lp.GetProfileName();
-		String ExpectedProfileName ="Welcome, LNM Testuser";		
+		String ExpectedProfileName ="Welcome, LNM Testuser!";		
 		sf.assertEquals(ActualProfileName, ExpectedProfileName);
 		Log.info("Profile name is verified");
 		tup.ClickonUsers();
@@ -132,6 +132,9 @@ public class UserTest extends BaseTest {
 		System.out.println("On UserNameonList , text User Name:->"+ActualUserNameonList);
 		String ExpectUserNameonList ="AutomationTesting";
 		sf.assertEquals(ActualUserNameonList, ExpectUserNameonList);
+		
+		tup.ClickonActionBtn();
+		Utility.waitForSeconds(2);
 		tup.ClickonActionOption();
 		Utility.waitForSeconds(2);
 		tup.SendTimeIn();

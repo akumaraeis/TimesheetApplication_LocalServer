@@ -61,7 +61,7 @@ public class Validate_UserInterfaceAttendanceFunctionality extends BaseTest {
 	}
 	@Test(priority=0)
     public static  String getToken() {
-        RestAssured.baseURI = "https://tsbackend.ndtatlas.com";
+        RestAssured.baseURI = "http://192.168.1.10:8085/";
 
         Response response = given()
             .header("Content-Type", "application/json")
@@ -85,7 +85,7 @@ public class Validate_UserInterfaceAttendanceFunctionality extends BaseTest {
 	public void DeleteTestUserRecord() throws InterruptedException, IOException
 	{
 
-        RestAssured.baseURI = "https://tsbackend.ndtatlas.com";
+        RestAssured.baseURI = "http://192.168.1.10:8085/";
         Response loginResponse = RestAssured.given()
                 .header("Content-Type", "application/json")
                 .body("{ \"username\": \"AutomationTestUser\", \"password\": \"Test@123\" }")
@@ -178,7 +178,7 @@ public class Validate_UserInterfaceAttendanceFunctionality extends BaseTest {
 	        .header("Authorization", "Token " + token)
 //	        .body(data)
 	        .when()
-	        .post("https://tsbackend.ndtatlas.com/api/utils/remove-automation-test-data/")
+	        .post("http://192.168.1.10:8085/api/utils/remove-automation-test-data/")
 	        .then()
 	        .statusCode(200)
 	        .log().all();

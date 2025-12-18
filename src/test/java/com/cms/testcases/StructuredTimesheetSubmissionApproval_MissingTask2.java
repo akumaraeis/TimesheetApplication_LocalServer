@@ -1,4 +1,4 @@
-package com.cms.testcases;
+                                                                        package com.cms.testcases;
 
 import static io.restassured.RestAssured.given;
 
@@ -33,7 +33,7 @@ import com.cms.utility.Utility;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
-public class NegativeTimesheetSubmissionApproval_TaskHrGreater extends BaseTest {
+public class StructuredTimesheetSubmissionApproval_MissingTask2 extends BaseTest {
 	public SoftAssert sf;
 	public SoftAssert sf2;
 	public JavascriptExecutor js;
@@ -91,12 +91,22 @@ public class NegativeTimesheetSubmissionApproval_TaskHrGreater extends BaseTest 
 //        Utility.waitForSeconds(1);
 
 	}
+	
+	@Test()
+	public void isTimesheetValidation_withMissingTask()
+	{
+		sf = new SoftAssert();
+		loginAsUser();
+	}
 
-
+public void loginAsUser()
+{
+	
+}
 	@Test(priority=2)
 	public void ValidateTimesheetSubmissionFunctionality() throws InterruptedException, IOException
 	{
-		sf = new SoftAssert();
+		
 		Utility.showTooltip("Executing Automation Script to Check Timesheet Submission by User and Approval Functionality by Line Manager.");
 
 		Utility.waitForSeconds(5);
@@ -144,27 +154,27 @@ public class NegativeTimesheetSubmissionApproval_TaskHrGreater extends BaseTest 
 		Utility.showTooltip("Step 3 :-> After Selecting Week, Timesheet Entry from (Mon–Fri) are created in Background using API RestAssured");
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy");
+		
+		LocalDate today = LocalDate.now();
 
-        LocalDate today = LocalDate.now();
+		// Previous week's Monday
+		LocalDate previousWeekMonday = today
+		        .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
+		        .minusWeeks(1);
 
-        // Previous week's Monday
-        LocalDate previousWeekMonday = today
-                .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
-                .minusWeeks(1);
+		// Previous week's Friday (Monday + 4 days)
+		LocalDate previousWeekFriday = previousWeekMonday.plusDays(4);
 
-        // Current week's Friday
-        LocalDate thisWeekFriday = today
-                .with(TemporalAdjusters.previousOrSame(DayOfWeek.FRIDAY));
+		// Format results
+		String prevMondayText = previousWeekMonday.format(formatter);
+		String prevFridayText = previousWeekFriday.format(formatter);
 
-        // Format results
-        String prevMondayText = previousWeekMonday.format(formatter);
-        String thisFridayText = thisWeekFriday.format(formatter);
-
-        System.out.println("Previous Week Monday: " + prevMondayText);
-        System.out.println("This Week Friday   : " + thisFridayText);
+		System.out.println("Previous Week Monday: " + prevMondayText);
+		System.out.println("Previous Week Friday: " + prevFridayText);
 	     startText = prevMondayText;
-	     endText   = thisFridayText;
-
+	     System.out.println("Previous week Monday :->"+startText);
+	     endText   = prevFridayText;
+	     System.out.println("Previous week Friday :->"+endText);
 
 		DateTimeFormatter inputFormatter2 = DateTimeFormatter.ofPattern("MMM dd, yyyy", Locale.ENGLISH);
 		LocalDate startDate = LocalDate.parse(startText, inputFormatter);
@@ -249,41 +259,6 @@ public class NegativeTimesheetSubmissionApproval_TaskHrGreater extends BaseTest 
 					}
 				}
 
-				for (int i = taskButtons.size(); i <= taskButtons.size(); i++) {
-					try {
-						WebElement MinimizeBtn2 = driverR.findElement(By.xpath("(//*[contains(@class,\"d-flex justify-content-end col-sm-1\")])[" + i + "]"));
-						Utility.scrollIntoView(driverR, js, MinimizeBtn2);
-						MinimizeBtn2.click();
-						WebElement addTaskBtn = driverR.findElement(By.xpath("(//*[contains(text(),'Add New Task')])["+i+"]"));
-						Utility.scrollIntoView(driverR, js, addTaskBtn);
-						wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
-						wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
-						wait.until(ExpectedConditions.elementToBeClickable(addTaskBtn));
-						Utility.safeClick(driverR, js, addTaskBtn);
-
-						att.SelectSubProcess();
-						att.ClickonActivity();
-						att.SendTaskDescription();
-						att.SendTaskDuration2();
-						att.ClickonTaskSubmit();
-						Utility.waitForSeconds(1);
-
-						WebElement SuccessfulMsg = driverR.findElement(By.xpath("//*[contains(text(),'Task created successfully!')]"));
-						Utility.showCallout2("Validation Checks Applied on Task Submission Alert.", SuccessfulMsg);
-						String ActualSuccessfulMsg = SuccessfulMsg.getText();
-						String ExpectSuccessfulMsg = "Task created successfully!";
-						sf.assertEquals(ActualSuccessfulMsg, ExpectSuccessfulMsg);
-						Log.info("Task added Successfully to Timesheet for Respective date");
-
-//						WebElement MinimizeBtn3 = driverR.findElement(By.xpath("(//*[contains(@class,'accordion-button')])[1]"));
-//						Utility.scrollIntoView(driverR, js, MinimizeBtn3);
-//						MinimizeBtn3.click();
-//						Utility.waitForSeconds(2);
-					} catch (ElementClickInterceptedException e) {
-						System.out.println("Add Task Click Intercepted: Retrying via JS click.");
-						js.executeScript("arguments[0].click();", driverR.findElement(By.xpath("(//*[contains(text(),'Add Task')])[1]")));
-					}
-				}
 				Utility.showTooltip("Step 5:-> After adding Task, submitting this weekly Timesheet using Automation Script");
 				// Submit timesheet
 				try {
@@ -312,14 +287,17 @@ public class NegativeTimesheetSubmissionApproval_TaskHrGreater extends BaseTest 
 					Utility.waitForSeconds(2);
 					System.out.println("✅ Timesheet submitted for week " + 2);
 
-		            WebElement confirmMsg = driverR.findElement(By.xpath("//*[contains(text(),'Task hours per timesheet must be within 15 minutes of effective working hours.')]"));
+		            WebElement confirmMsg = driverR.findElement(By.xpath("//*[contains(text(),'Some timesheet entries have no tasks logged. Please add at least one task per entry.')]"));
 		            String ActualTimesheetSuccesful = confirmMsg.getText();
+		            Utility.highlightElement(confirmMsg);
 		            System.out.println("Timesheet submission Succesful Message :-> " + ActualTimesheetSuccesful);
-		            String ExpectTimesheetSuccesful ="Task hours per timesheet must be within 15 minutes of effective working hours.";
+		            String ExpectTimesheetSuccesful ="Some timesheet entries have no tasks logged. Please add at least one task per entry.";
 		            sf.assertEquals(ActualTimesheetSuccesful, ExpectTimesheetSuccesful);
 		            // Check final status after submission
 		            driverR.navigate().refresh();
 		            Utility.waitForSeconds(2);
+					driverR.navigate().refresh();
+					Utility.waitForSeconds(2);
 
 //					WebElement finalWeek = Utility.waitForElementToBeClickable(driverR, By.xpath(weekXPath), 10);
 //					Utility.scrollIntoView(driverR, js, finalWeek);
