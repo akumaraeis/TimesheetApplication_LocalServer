@@ -351,6 +351,7 @@ public class NegativeScenarioTimesheetSubmissionApproval_TaskHrLesser extends Ba
 		driverR.navigate().to("about:blank");
 	}
 
+	@AfterClass
 	public void closebrowser()
 	{
 
