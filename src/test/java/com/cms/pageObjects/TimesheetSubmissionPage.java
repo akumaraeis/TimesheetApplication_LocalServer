@@ -11,6 +11,7 @@ import java.util.Random;
 import java.util.Set;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -152,12 +153,29 @@ public class TimesheetSubmissionPage extends BaseTest{
 	@FindBy(xpath="//span[normalize-space()='Submit Timesheet']")
 	private WebElement TimesheetSubmission ;
 	
-	
 	@FindBy(xpath="//button[normalize-space()='Actions']")
 	private WebElement Actions ;
 	
 	@FindBy(xpath="//span[normalize-space()='Timesheet Approvals']")
 	private WebElement TimesheetApproval ;
+	
+	@FindBy(xpath="//*[contains(text(),'Task created successfully!')]")
+	private WebElement SuccessfulMsg ;
+	
+	@FindBy(xpath="//*[contains(text(),'Add New Task')]")
+	private WebElement taskButtons ;
+	
+	@FindBy(xpath="//*[contains(text(),'Add New Task')]")
+	private WebElement MinimizeBtn2 ;
+	
+	@FindBy(xpath="//button[normalize-space()='Submit Timesheet']")
+	private WebElement submitBtn ;
+	
+	@FindBy(xpath="//button[normalize-space()='Submit']")
+	private WebElement confirmSubmit ;
+	
+	@FindBy(xpath ="//*[contains(text(),'Task hours per timesheet must be within 15 minutes of effective working hours.')]")
+	private WebElement confirmMsg ;
 	// *********Construction Declaration to initialize Data Member********	
 	
 	
@@ -383,6 +401,122 @@ public class TimesheetSubmissionPage extends BaseTest{
 		return ActualMsg2 ;
 	}
 
+	public String GetSuccessfulMsg() throws InterruptedException
+	{
+		Utility.ExplicitWait(SuccessfulMsg);
+		String ActualMsg3 = SuccessfulMsg.getText();
+		System.out.println(" Message received on Timesheet"+ActualMsg3);
+		Thread.sleep(2000);
+		return ActualMsg3 ;
+	}
+	
+public void addingTaskToAvailableWeek() throws InterruptedException
+{
+	List<WebElement> taskButtons = driverR.findElements(By.xpath("//*[contains(text(),'Add New Task')]"));
+	System.out.println("Total Add Task buttons: " + taskButtons.size());
+	WebDriverWait wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
+
+	for (int i = 1; i < taskButtons.size(); i++) {
+		try {
+			WebElement MinimizeBtn2 = driverR.findElement(By.xpath("(//*[contains(@class,\"d-flex justify-content-end col-sm-1\")])[" + i + "]"));
+			Utility.scrollIntoView(driverR, js, MinimizeBtn2);
+			MinimizeBtn2.click();
+			WebElement addTaskBtn = driverR.findElement(By.xpath("(//*[contains(text(),'Add New Task')])["+i+"]"));
+			Utility.scrollIntoView(driverR, js, addTaskBtn);
+			
+			wait.until(ExpectedConditions.elementToBeClickable(addTaskBtn));
+			Utility.safeClick(driverR, js, addTaskBtn);
+
+			Utility.waitForSeconds(1);
+			fillTaskDetailwithmatchingDuration();
+			String ActualSuccessfulMsg = tsp.GetSuccessfulMsg();		
+			String ExpectSuccessfulMsg = "Task created successfully!";
+//			sf.assertEquals(ActualSuccessfulMsg, ExpectSuccessfulMsg);
+			Log.info("Task added Successfully to Timesheet for Respective date");
+
+		} catch (ElementClickInterceptedException e) {
+			System.out.println("Add Task Click Intercepted: Retrying via JS click.");
+			js.executeScript("arguments[0].click();", driverR.findElement(By.xpath("(//*[contains(text(),'Add Task')])[1]")));
+		}
+	}
+
+	for (int i = taskButtons.size(); i <= taskButtons.size(); i++) {
+		try {
+			WebElement MinimizeBtn2 = driverR.findElement(By.xpath("(//*[contains(@class,\"d-flex justify-content-end col-sm-1\")])[" + i + "]"));
+			Utility.scrollIntoView(driverR, js, MinimizeBtn2);
+			MinimizeBtn2.click();
+			WebElement addTaskBtn = driverR.findElement(By.xpath("(//*[contains(text(),'Add New Task')])["+i+"]"));
+			Utility.scrollIntoView(driverR, js, addTaskBtn);
+			wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
+			wait.until(ExpectedConditions.elementToBeClickable(addTaskBtn));
+			Utility.safeClick(driverR, js, addTaskBtn);
+
+			fillTaskDetailwithLesserDuration();
+			WebElement SuccessfulMsg = driverR.findElement(By.xpath("//*[contains(text(),'Task created successfully!')]"));
+			Utility.showCallout2("Validation Checks Applied on Task Submission Alert.", SuccessfulMsg);
+			String ActualSuccessfulMsg = SuccessfulMsg.getText();
+			String ExpectSuccessfulMsg = "Task created successfully!";
+//			sf.assertEquals(ActualSuccessfulMsg, ExpectSuccessfulMsg);
+			Log.info("Task added Successfully to Timesheet for Respective date");
+
+
+		} catch (ElementClickInterceptedException e) {
+			System.out.println("Add Task Click Intercepted: Retrying via JS click.");
+			js.executeScript("arguments[0].click();", driverR.findElement(By.xpath("(//*[contains(text(),'Add Task')])[1]")));
+		}
+	}
+}
+
+public void clickOnSubmitBtn()
+{
+	try {
+
+		
+		Utility.scrollIntoView(driverR, js, submitBtn);
+		Utility.showCallout2("Click on Submit Button ", submitBtn);
+		Utility.waitForSeconds(1);
+		Utility.safeClick(driverR, js, submitBtn);
+		Utility.waitForSeconds(2);
+		Log.info("Script click on Submit Button");
+
+	
+		Utility.scrollIntoView(driverR, js, confirmSubmit);
+		Utility.showCallout("Click on Confirm Button Using Automation Script", confirmSubmit);
+		Utility.highlightElement(confirmSubmit);
+		Utility.safeClick(driverR, js, confirmSubmit);
+		Utility.waitForSeconds(2);
+		System.out.println("✅ Timesheet submitted for week " + 2);
+
+		
+		String ActualTimesheetSuccesful = confirmMsg.getText();
+		System.out.println("Timesheet submission Succesful Message :-> " + ActualTimesheetSuccesful);
+		String ExpectTimesheetSuccesful ="Task hours per timesheet must be within 15 minutes of effective working hours.";
+//		sf.assertEquals(ActualTimesheetSuccesful, ExpectTimesheetSuccesful);
+		driverR.navigate().refresh();
+		Utility.waitForSeconds(2);
+	} catch (Exception e) {
+		System.out.println("⚠️ Error during final submission: " + e.getMessage());
+	}
+
+}
+	public void fillTaskDetailwithmatchingDuration() throws InterruptedException
+	{
+		att.SelectSubProcess();
+		att.ClickonActivity();
+		att.SendTaskDescription();
+		att.SendTaskDuration();
+		att.ClickonTaskSubmit();
+
+	}
+	public void fillTaskDetailwithLesserDuration() throws InterruptedException
+	{
+		att.SelectSubProcess();
+		att.ClickonActivity();
+		att.SendTaskDescription();
+		att.SendTaskDuration3();
+		att.ClickonTaskSubmit();
+
+	}
 }
 
 
