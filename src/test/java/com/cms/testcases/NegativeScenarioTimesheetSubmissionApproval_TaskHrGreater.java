@@ -220,7 +220,6 @@ public class NegativeScenarioTimesheetSubmissionApproval_TaskHrGreater extends B
 						WebElement addTaskBtn = driverR.findElement(By.xpath("(//*[contains(text(),'Add New Task')])["+i+"]"));
 						Utility.scrollIntoView(driverR, js, addTaskBtn);
 						wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
-						wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
 						wait.until(ExpectedConditions.elementToBeClickable(addTaskBtn));
 						Utility.safeClick(driverR, js, addTaskBtn);
 
@@ -255,7 +254,6 @@ public class NegativeScenarioTimesheetSubmissionApproval_TaskHrGreater extends B
 						MinimizeBtn2.click();
 						WebElement addTaskBtn = driverR.findElement(By.xpath("(//*[contains(text(),'Add New Task')])["+i+"]"));
 						Utility.scrollIntoView(driverR, js, addTaskBtn);
-						wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
 						wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
 						wait.until(ExpectedConditions.elementToBeClickable(addTaskBtn));
 						Utility.safeClick(driverR, js, addTaskBtn);

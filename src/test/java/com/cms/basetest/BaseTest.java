@@ -110,6 +110,7 @@ public class BaseTest{
 			ChromeOptions chromeOptions = new ChromeOptions();
 //			chromeOptions.addArguments("--start-maximized");
 			chromeOptions.addArguments("--incognito");
+//			chromeOptions.addArguments("--headless");
 //			chromeOptions.addArguments("--disable-notifications");
 //			chromeOptions.addArguments("--disable-blink-features=AutomationControlled");
 
@@ -158,14 +159,15 @@ public class BaseTest{
 //		WebDriver driverR = getDriver();
 		driverR.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));	
 		driverR.manage().window().maximize();
-		driverR.get("http://192.168.1.10:8086/login");
+		driverR.get(getFile("baseUrl"));
 		Thread.sleep(1000);	
 	}
 
 	public static String getFile(String filename) throws IOException
 	{
 		Properties prop = new Properties();
-		String p1 = "C:\\Users\\ATLAS-ADMIN\\eclipse-workspace\\automation-cc\\src\\test\\resources\\Config File\\config.properties" ;
+//		String p1 = "C:\\Users\\ATLAS-ADMIN\\eclipse-workspace\\automation-cc\\src\\test\\resources\\Config File\\config.properties" ;
+		String p1 = System.getProperty("user.dir")+"/src/test/resources/Config File/config.properties" ;
 		FileInputStream fis = new FileInputStream(p1);
 		prop.load(fis);
 		String data = prop.getProperty(filename);
