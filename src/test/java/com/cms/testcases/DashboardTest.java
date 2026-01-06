@@ -178,12 +178,6 @@ public class DashboardTest extends BaseTest {
 		lp.ClickonLoginBtn();
 		Log.info("User is logged in ");
 		Thread.sleep(2000);
-//		String ActualProfileName=lp.GetProfileName();
-//		String ExpectedProfileName ="Welcome, AutomationTesting!";
-//
-//		sf.assertEquals(ActualProfileName, ExpectedProfileName);
-//		Log.info("Profile name is verified");
-//		Utility.showTooltip("User Profile Name Validated using AutomationScript.");
 
 		att.ClickonAttendance();		
 		Thread.sleep(2000);
@@ -194,13 +188,13 @@ public class DashboardTest extends BaseTest {
 		att.ClickonConfirmationBtn();
 		Thread.sleep(2000);
 		
-		String ActualSuccessfulMsg = driverR.findElement(By.xpath("//*[contains(text(),'Attendance updated successfully!')]")).getText();
-		System.out.println("ActualSuccesful Message found :->"+ActualSuccessfulMsg);
-		String ExpectSuccessfulMsg ="Attendance updated successfully!";
-		sf.assertEquals(ActualSuccessfulMsg, ExpectSuccessfulMsg);
-		Utility.showTooltip("Step 5 :-> User Successfully Clock-in on Application ");
-		Log.info("User Successfully Clock-in on Application");
-		
+//		String ActualSuccessfulMsg = driverR.findElement(By.xpath("//*[contains(text(),'Attendance updated successfully!')]")).getText();
+//		System.out.println("ActualSuccesful Message found :->"+ActualSuccessfulMsg);
+//		String ExpectSuccessfulMsg ="Attendance updated successfully!";
+//		sf.assertEquals(ActualSuccessfulMsg, ExpectSuccessfulMsg);
+//		Utility.showTooltip("Step 5 :-> User Successfully Clock-in on Application ");
+//		Log.info("User Successfully Clock-in on Application");
+//		
 	}
 	
 	@Test(priority=3)

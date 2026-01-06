@@ -195,7 +195,7 @@ public class ApprovalRegularizationTest extends BaseTest {
        
        Log.info("Navigate to RegularizationRequestBtn "); 
        
-       driverR.findElement(By.xpath("(//td[contains(text(),'"+trimRegularizeDate+"')])//following::td[1]//button")).click();
+       driverR.findElement(By.xpath("(//span[contains(text(),'"+trimRegularizeDate+"')])//following::td[13]//button")).click();
        
        Utility.waitForSeconds(2);
        

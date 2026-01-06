@@ -236,7 +236,6 @@ public class EnterprisesStructuredNegativeScenarioTimesheetApproval_MissingTask 
 				WebElement addTaskBtn = driverR.findElement(By.xpath("(//*[contains(text(),'Add New Task')])["+i+"]"));
 				Utility.scrollIntoView(driverR, js, addTaskBtn);
 				wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
-				wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
 				wait.until(ExpectedConditions.elementToBeClickable(addTaskBtn));
 				Utility.safeClick(driverR, js, addTaskBtn);
 
