@@ -196,12 +196,7 @@ public class NegativeScenarioTimesheetSubmissionApproval_MissingTask extends Bas
 				// Add task and submit timesheet
 		        driverR.navigate().refresh();
 				Utility.waitForSeconds(2);
-				String weekXpath = "//div[contains(@class,'m-1 px-1 py-0 row')]";
-				WebElement refreshedWeek = driverR.findElement(By.xpath(weekXpath));
-				js = (JavascriptExecutor)driverR;
-				Utility.scrollIntoView(driverR, js, refreshedWeek);
-				Utility.safeClick(driverR, js, refreshedWeek);
-				System.out.println("now script will click on week");
+				tsp.clickOnSelectedWeek();
  
 //                driverR.navigate().refresh();
                 Thread.sleep(2000);
@@ -213,18 +208,9 @@ public class NegativeScenarioTimesheetSubmissionApproval_MissingTask extends Bas
 //				Utility.scrollIntoView(driverR, js, MinimizeBtn);
 //				MinimizeBtn.click();
 
-				for (int i = 1; i < taskButtons.size(); i++) {
-					try {
-						WebElement MinimizeBtn2 = driverR.findElement(By.xpath("(//*[contains(@class,\"d-flex justify-content-end col-sm-1\")])[" + i + "]"));
-						Utility.scrollIntoView(driverR, js, MinimizeBtn2);
-						MinimizeBtn2.click();
-						WebElement addTaskBtn = driverR.findElement(By.xpath("(//*[contains(text(),'Add New Task')])["+i+"]"));
-						Utility.scrollIntoView(driverR, js, addTaskBtn);
-						wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
-						wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
-						wait.until(ExpectedConditions.elementToBeClickable(addTaskBtn));
-						Utility.safeClick(driverR, js, addTaskBtn);
-
+	         	   for(int i =0 ;i< tsp.gettaskButtonSize();i++)
+	         	   {
+	         		tsp.add_allTask(i);
 						att.SelectSubProcess();
 						att.ClickonActivity();
 						att.SendTaskDescription();
@@ -243,11 +229,8 @@ public class NegativeScenarioTimesheetSubmissionApproval_MissingTask extends Bas
 //						Utility.scrollIntoView(driverR, js, MinimizeBtn3);
 //						MinimizeBtn3.click();
 //						Utility.waitForSeconds(2);
-					} catch (ElementClickInterceptedException e) {
-						System.out.println("Add Task Click Intercepted: Retrying via JS click.");
-						js.executeScript("arguments[0].click();", driverR.findElement(By.xpath("(//*[contains(text(),'Add Task')])[1]")));
 					}
-				}
+				
 
 				Utility.showTooltip("Step 5:-> After adding Task, submitting this weekly Timesheet using Automation Script");
 				// Submit timesheet
@@ -260,34 +243,16 @@ public class NegativeScenarioTimesheetSubmissionApproval_MissingTask extends Bas
 //					Utility.waitForSeconds(2);
 //					Log.info("Script click on Action Button");
 					
-					WebElement submitBtn = Utility.waitForElementToBeClickable(driverR, By.xpath("//button[normalize-space()='Submit Timesheet']"), 10);
-					Utility.scrollIntoView(driverR, js, submitBtn);
-					Utility.showCallout2("Click on Submit Button ", submitBtn);
-					Utility.waitForSeconds(1);
-//               	Utility.highlightElement(submitBtn);
-					Utility.safeClick(driverR, js, submitBtn);
-					Utility.waitForSeconds(2);
-					Log.info("Script click on Submit Button");
-
-					WebElement confirmSubmit = Utility.waitForElementToBeClickable(driverR, By.xpath("//button[normalize-space()='Submit']"), 10);
-					Utility.scrollIntoView(driverR, js, confirmSubmit);
-					Utility.showCallout("Click on Confirm Button Using Automation Script", confirmSubmit);
-					Utility.highlightElement(confirmSubmit);
-					Utility.safeClick(driverR, js, confirmSubmit);
-					Utility.waitForSeconds(2);
-					System.out.println("✅ Timesheet submitted for week " + 2);
-
-		            WebElement confirmMsg = driverR.findElement(By.xpath("//*[contains(text(),'Some timesheet entries have no tasks logged. Please add at least one task per entry.')]"));
-		            String ActualTimesheetSuccesful = confirmMsg.getText();
-		            Utility.highlightElement(confirmMsg);
-		            System.out.println("Timesheet submission Succesful Message :-> " + ActualTimesheetSuccesful);
+					tsp.clickOnSubmitButton();
+			        tsp.clickOnConfirmButton();       
+			        String ActualTimesheetSuccesful = tsp.getconfirmMsg();
+			        System.out.println("Timesheet submission Succesful Message :-> " + ActualTimesheetSuccesful);
+			        driverR.navigate().refresh();
+			        Utility.waitForSeconds(2);
+		            
 		            String ExpectTimesheetSuccesful ="Some timesheet entries have no tasks logged. Please add at least one task per entry.";
 		            sf.assertEquals(ActualTimesheetSuccesful, ExpectTimesheetSuccesful);
 		            // Check final status after submission
-		            driverR.navigate().refresh();
-		            Utility.waitForSeconds(2);
-					driverR.navigate().refresh();
-					Utility.waitForSeconds(2);
 
 //					WebElement finalWeek = Utility.waitForElementToBeClickable(driverR, By.xpath(weekXPath), 10);
 //					Utility.scrollIntoView(driverR, js, finalWeek);

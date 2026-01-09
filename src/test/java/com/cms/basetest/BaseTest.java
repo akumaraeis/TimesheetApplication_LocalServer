@@ -83,12 +83,12 @@ public class BaseTest{
 	public static TimesheetReportsPage tsrp;
 
 	
-	  private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-
-	    public static WebDriver getDriver() {
-	        return driver.get();
-	    }
-
+//	  private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+//
+//	    public static WebDriver getDriver() {
+//	        return driver.get();
+//	    }
+//
 	//****To Run Code in Virtual Cloud Machine.
 	public void initBrowser(String Browsername ) throws IOException
 	{

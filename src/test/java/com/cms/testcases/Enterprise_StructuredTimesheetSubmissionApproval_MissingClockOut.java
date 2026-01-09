@@ -221,13 +221,7 @@ public class Enterprise_StructuredTimesheetSubmissionApproval_MissingClockOut ex
 				// Add task and submit timesheet
 		        driverR.navigate().refresh();
 				Utility.waitForSeconds(2);
-				String weekXpath = "//div[contains(@class,'m-1 px-1 py-0 row')]";
-				WebElement refreshedWeek = driverR.findElement(By.xpath(weekXpath));
-				js = (JavascriptExecutor)driverR;
-				Utility.scrollIntoView(driverR, js, refreshedWeek);
-				Utility.safeClick(driverR, js, refreshedWeek);
-				System.out.println("now script will click on week");
- 
+				tsp.clickOnSelectedWeek(); 
 //                driverR.navigate().refresh();
                 Thread.sleep(2000);
 				List<WebElement> taskButtons = driverR.findElements(By.xpath("//*[contains(text(),'Add New Task')]"));
@@ -245,7 +239,6 @@ public class Enterprise_StructuredTimesheetSubmissionApproval_MissingClockOut ex
 						MinimizeBtn2.click();
 						WebElement addTaskBtn = driverR.findElement(By.xpath("(//*[contains(text(),'Add New Task')])["+i+"]"));
 						Utility.scrollIntoView(driverR, js, addTaskBtn);
-						wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
 						wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
 						wait.until(ExpectedConditions.elementToBeClickable(addTaskBtn));
 						Utility.safeClick(driverR, js, addTaskBtn);

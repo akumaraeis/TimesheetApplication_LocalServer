@@ -11,6 +11,7 @@ import java.util.Random;
 import java.util.Set;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -21,6 +22,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.asserts.SoftAssert;
 
 import com.cms.basetest.BaseTest;
 import com.cms.utility.Log;
@@ -64,7 +66,6 @@ public class TimesheetSubmissionPage extends BaseTest{
 	
 	@FindBy(xpath="(//*[text() ='Time Out'])[2]")
 	private WebElement ClockOutTime ;
-
 	
 //	@FindBy(xpath="//input[@id='logout_date']")
 //	private WebElement ClockOutTime ;
@@ -83,7 +84,7 @@ public class TimesheetSubmissionPage extends BaseTest{
 	
 	@FindBy(xpath="//span[normalize-space()='Submit']")
 	private WebElement Submit ;
-	
+		
 	@FindBy(xpath="(//*[contains(text(),'Add Task')])[1]")
 	private WebElement AddTask ;
 		
@@ -163,21 +164,42 @@ public class TimesheetSubmissionPage extends BaseTest{
 	private WebElement SuccessfulMsg ;
 	
 	@FindBy(xpath="//*[contains(text(),'Add New Task')]")
-	private WebElement taskButtons ;
+	private List<WebElement> taskButtons ;
 	
-	@FindBy(xpath="//*[contains(text(),'Add New Task')]")
-	private WebElement MinimizeBtn2 ;
+//	@FindBy(xpath="//*[contains(text(),'Add New Task')]")
+//	private WebElement MinimizeBtn2 ;
 	
 	@FindBy(xpath="//button[normalize-space()='Submit Timesheet']")
 	private WebElement submitBtn ;
-	
+
 	@FindBy(xpath="//button[normalize-space()='Submit']")
 	private WebElement confirmSubmit ;
 	
 	@FindBy(xpath ="//*[contains(text(),'Task hours per timesheet must be within 15 minutes of effective working hours.')]")
 	private WebElement confirmMsg ;
-	// *********Construction Declaration to initialize Data Member********	
 	
+	@FindBy(xpath ="//*[contains(@class,\"d-flex justify-content-end col-sm-1\")]")
+	private List<WebElement> minimizeBtn ;
+	
+	@FindBy(xpath ="(//*[contains(text(),'Add New Task')])")
+	private List<WebElement> addTaskBtn ;
+	
+	@FindBy(xpath="//div[contains(@class,'m-1 px-1 py-0 row')]")
+	private WebElement weekXpath ;
+
+	@FindBy(xpath="//button[normalize-space()='ACTIONS']")
+	private WebElement actionsBtn ;
+	
+	@FindBy(xpath="//textarea[@placeholder='Enter comment']")
+	private WebElement comment ;
+	
+	@FindBy(xpath="//a[normalize-space()='Approve Timesheet']")
+	private WebElement approveTimesheet ;
+	
+	// *********Construction Declaration to initialize Data Member********	
+	//*[contains(text(),'Add New Task')]
+	
+
 	
 	public TimesheetSubmissionPage(WebDriver driverR)
 	{
@@ -311,7 +333,7 @@ public class TimesheetSubmissionPage extends BaseTest{
 		Utility.showCallout2("Selecting Timesheet Submission ", TimesheetSubmission);
 		Log.info("Selecting Timesheet Submission");
 		Thread.sleep(1000);
-		JavascriptExecutor js = (JavascriptExecutor)driver2;
+		js = (JavascriptExecutor)driver2;
 		js.executeScript("arguments[0].scrollIntoView(true);", TimesheetSubmission);
 		TimesheetSubmission.click();
 //	    Thread.sleep(1000);
@@ -341,6 +363,68 @@ public class TimesheetSubmissionPage extends BaseTest{
 		
 	}
 
+	public int  gettaskButtonSize() throws InterruptedException
+	{
+//		Utility.ExplicitWait(ClockinDate);
+//
+//		ClockinDate.sendKeys(Date1);
+		
+		int taskButtonSize = taskButtons.size();
+        return taskButtonSize ;
+		
+	}
+	
+	public void clickOnSelectedWeek()
+	{
+//		String weekXpath = "//div[contains(@class,'m-1 px-1 py-0 row')]";
+//		WebElement refreshedWeek = driverR.findElement(By.xpath(weekXpath));
+		js = (JavascriptExecutor)driver2;
+		Utility.scrollIntoView(driver2, js, weekXpath);
+		Utility.safeClick(driver2, js, weekXpath);
+		System.out.println("now script will click on week");
+
+	}
+
+	public void add_allTask(int i) throws InterruptedException
+	{
+		        System.out.println("Loop Count Number :->"+i);
+				WebElement MinimizeBtn2 = minimizeBtn.get(i);
+				js = (JavascriptExecutor)driver2;
+				Utility.scrollIntoView(driver2, js, MinimizeBtn2);
+				MinimizeBtn2.click();
+				WebElement addTaskBtn2 = addTaskBtn.get(i);
+				Utility.scrollIntoView(driver2, js, addTaskBtn2);
+				WebDriverWait wait = new WebDriverWait(driver2 ,Duration.ofSeconds(10));
+				wait.until(ExpectedConditions.elementToBeClickable(addTaskBtn2));
+				Utility.safeClick(driver2, js, addTaskBtn2);
+//				WebElement MinimizeBtn3 = driverR.findElement(By.xpath("(//*[contains(@class,'accordion-button')])[1]"));
+//				Utility.scrollIntoView(driverR, js, MinimizeBtn3);
+//				MinimizeBtn3.click();
+//				Utility.waitForSeconds(2);
+
+		}
+	
+	public void clickOnSubmitButton()
+	{
+    js = (JavascriptExecutor)driver2;
+	Utility.scrollIntoView(driver2, js, submitBtn);
+	Utility.showCallout2("Click on Submit Button ", submitBtn);
+	Utility.waitForSeconds(1);
+	Utility.safeClick(driver2, js, submitBtn);
+	Utility.waitForSeconds(2);
+	Log.info("Script click on Submit Button");
+	}
+	
+	public void clickOnConfirmButton()
+	{		
+		js = (JavascriptExecutor)driver2;
+		Utility.scrollIntoView(driver2, js, confirmSubmit);
+		Utility.showCallout("Click on Confirm Button Using Automation Script", confirmSubmit);
+		Utility.highlightElement(confirmSubmit);
+		Utility.safeClick(driver2, js, confirmSubmit);
+		Utility.waitForSeconds(2);
+		System.out.println("✅ Timesheet submitted for week " + 2);
+	}
 
 	public void SelectClockOutDate(String Date) throws InterruptedException
 	{
@@ -377,6 +461,22 @@ public class TimesheetSubmissionPage extends BaseTest{
 	    Thread.sleep(2000);
 	}
 	
+	public void ClickonconfirmSubmit() throws InterruptedException
+	{
+		Utility.ExplicitWait(confirmSubmit);
+		Utility.showCallout("Clicking on Submit Button using AutomationScript", confirmSubmit);
+		Log.info("Clicking on Submit Button using AutomationScript");
+		confirmSubmit.click();
+	    Thread.sleep(2000);
+	}
+	
+	
+	public String getconfirmMsg() throws InterruptedException
+	{
+		Utility.ExplicitWait(confirmMsg);
+		String confirmText = confirmMsg.getText();
+		return confirmText;
+	}
 	
 	public void ClickonTimesheetApproval() throws InterruptedException
 	{
@@ -409,6 +509,52 @@ public class TimesheetSubmissionPage extends BaseTest{
 		Thread.sleep(2000);
 		return ActualMsg3 ;
 	}
+	
+	public void clickOnActionBtn()
+	{
+        Utility.scrollIntoView(driverR, js, actionsBtn);
+        Utility.showCallout2("Click on Action Button using Automation Script", actionsBtn);
+        Utility.waitForSeconds(1);
+        Utility.safeClick(driverR, js, actionsBtn);
+        Utility.waitForSeconds(2);			         
+	}   
+       
+	public void submitcomment()
+	{      
+        Utility.scrollIntoView(driverR, js, comment);
+        Utility.highlightElement(comment);
+        Utility.showCallout("Sending Comment using Automation Script", comment);
+        comment.sendKeys("Approve This Timesheet for Testing");
+        Utility.waitForSeconds(2);
+	}
+	
+	public void approveTimesheet()
+	{
+  
+    Utility.scrollIntoView(driverR, js, approveTimesheet);
+    Utility.showCallout2("Click on Approve Timesheet using Automation Script", approveTimesheet);
+    Utility.waitForSeconds(1);
+    Utility.safeClick(driverR, js, approveTimesheet);
+    Utility.waitForSeconds(2);
+	}
+//        WebElement confirmSubmit = Utility.waitForElementToBeClickable(driverR, By.xpath("//button[normalize-space()='Submit']"), 10);
+//        Utility.scrollIntoView(driverR, js, confirmSubmit);
+//        Utility.showCallout("Clicking on confirm Button using Automation Script", confirmSubmit);
+//        Utility.highlightElement(confirmSubmit);
+//        Utility.safeClick(driverR, js, confirmSubmit);
+//        Utility.waitForSeconds(2);
+//
+//        System.out.println("✅ Timesheet submitted for week " + (i + 1));
+//
+//        WebElement confirmMsg = driverR.findElement(By.xpath("//*[contains(text(),'Approved successfully!')]"));
+//        Utility.highlightElement(confirmMsg);
+//        String ActualTimesheetApproveMsg = confirmMsg.getText();
+//        System.out.println("Timesheet submission Successf2ul Message :-> " + ActualTimesheetApproveMsg);
+//
+//        ExpectTimesheetApproveMsg = "Approved successfully!";
+//        sf.assertEquals(ActualTimesheetApproveMsg, ExpectTimesheetApproveMsg);
+//        Log.info("User Timesheet Approved successf2ully by Line Manager");
+
 	
 public void addingTaskToAvailableWeek() throws InterruptedException
 {
@@ -467,38 +613,38 @@ public void addingTaskToAvailableWeek() throws InterruptedException
 	}
 }
 
-public void clickOnSubmitBtn()
-{
-	try {
-
-		
-		Utility.scrollIntoView(driverR, js, submitBtn);
-		Utility.showCallout2("Click on Submit Button ", submitBtn);
-		Utility.waitForSeconds(1);
-		Utility.safeClick(driverR, js, submitBtn);
-		Utility.waitForSeconds(2);
-		Log.info("Script click on Submit Button");
-
-	
-		Utility.scrollIntoView(driverR, js, confirmSubmit);
-		Utility.showCallout("Click on Confirm Button Using Automation Script", confirmSubmit);
-		Utility.highlightElement(confirmSubmit);
-		Utility.safeClick(driverR, js, confirmSubmit);
-		Utility.waitForSeconds(2);
-		System.out.println("✅ Timesheet submitted for week " + 2);
-
-		
-		String ActualTimesheetSuccesful = confirmMsg.getText();
-		System.out.println("Timesheet submission Succesful Message :-> " + ActualTimesheetSuccesful);
-		String ExpectTimesheetSuccesful ="Task hours per timesheet must be within 15 minutes of effective working hours.";
-//		sf.assertEquals(ActualTimesheetSuccesful, ExpectTimesheetSuccesful);
-		driverR.navigate().refresh();
-		Utility.waitForSeconds(2);
-	} catch (Exception e) {
-		System.out.println("⚠️ Error during final submission: " + e.getMessage());
-	}
-
-}
+//public void clickOnSubmitBtn()
+//{
+//	try {
+//
+//		
+//		Utility.scrollIntoView(driverR, js, submitBtn);
+//		Utility.showCallout2("Click on Submit Button ", submitBtn);
+//		Utility.waitForSeconds(1);
+//		Utility.safeClick(driverR, js, submitBtn);
+//		Utility.waitForSeconds(2);
+//		Log.info("Script click on Submit Button");
+//
+//	
+//		Utility.scrollIntoView(driverR, js, confirmSubmit);
+//		Utility.showCallout("Click on Confirm Button Using Automation Script", confirmSubmit);
+//		Utility.highlightElement(confirmSubmit);
+//		Utility.safeClick(driverR, js, confirmSubmit);
+//		Utility.waitForSeconds(2);
+//		System.out.println("✅ Timesheet submitted for week " + 2);
+//
+//		
+//		String ActualTimesheetSuccesful = confirmMsg.getText();
+//		System.out.println("Timesheet submission Succesful Message :-> " + ActualTimesheetSuccesful);
+//		String ExpectTimesheetSuccesful ="Task hours per timesheet must be within 15 minutes of effective working hours.";
+////		sf.assertEquals(ActualTimesheetSuccesful, ExpectTimesheetSuccesful);
+//		driverR.navigate().refresh();
+//		Utility.waitForSeconds(2);
+//	} catch (Exception e) {
+//		System.out.println("⚠️ Error during final submission: " + e.getMessage());
+//	}
+//
+//}
 	public void fillTaskDetailwithmatchingDuration() throws InterruptedException
 	{
 		att.SelectSubProcess();

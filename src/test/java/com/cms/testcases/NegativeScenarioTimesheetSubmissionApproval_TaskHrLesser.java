@@ -97,34 +97,6 @@ public void shouldNotsubmitTimesheetwhenTaskdurationLesser() throws IOException,
 	sf.assertAll();
 }
 
-//	@Test(priority=2)
-	public void ValidateTimesheetSubmissionFunctionality() throws InterruptedException, IOException
-	{
-		String str =  "Welcome, AutomationTesting";
-		ActualUserName = str.replace("Welcome, ", "");
-		System.out.println(ActualUserName);
-
-//		sf.assertEquals(ActualProfileName, ExpectedProfileName);
-
-		System.out.println("now script will start adding task");
-		Utility.waitForSeconds(2);
-		// Add task and submit timesheet
-		driverR.navigate().refresh();
-		Utility.waitForSeconds(2);
-		String weekXpath = "//div[contains(@class,'m-1 px-1 py-0 row')]";
-		WebElement refreshedWeek = driverR.findElement(By.xpath(weekXpath));
-		js = (JavascriptExecutor)driverR;
-		Utility.scrollIntoView(driverR, js, refreshedWeek);
-		Utility.safeClick(driverR, js, refreshedWeek);
-		System.out.println("now script will click on week");
-
-		Thread.sleep(2000);
-        tsp.addingTaskToAvailableWeek();
-		Utility.showTooltip("Step 5:-> After adding Task, submitting this weekly Timesheet using Automation Script");
-
-		tsp.clickOnSubmitBtn();
-		
-	}
 
 	public String addHours(String baseTime, int hoursToAdd) {
 
@@ -224,13 +196,7 @@ public void shouldNotsubmitTimesheetwhenTaskdurationLesser() throws IOException,
 	// Add task and submit timesheet
     driverR.navigate().refresh();
 	Utility.waitForSeconds(2);
-	String weekXpath = "//div[contains(@class,'m-1 px-1 py-0 row')]";
-	WebElement refreshedWeek = driverR.findElement(By.xpath(weekXpath));
-	js = (JavascriptExecutor)driverR;
-	Utility.scrollIntoView(driverR, js, refreshedWeek);
-	Utility.safeClick(driverR, js, refreshedWeek);
-	System.out.println("now script will click on week");
-
+    tsp.clickOnSelectedWeek();
 //    driverR.navigate().refresh();
     Thread.sleep(2000);
 	List<WebElement> taskButtons = driverR.findElements(By.xpath("//*[contains(text(),'Add New Task')]"));
@@ -241,16 +207,9 @@ public void shouldNotsubmitTimesheetwhenTaskdurationLesser() throws IOException,
 //	Utility.scrollIntoView(driverR, js, MinimizeBtn);
 //	MinimizeBtn.click();
 
-	for (int i = 1; i < taskButtons.size(); i++) {
-		try {
-			WebElement MinimizeBtn2 = driverR.findElement(By.xpath("(//*[contains(@class,\"d-flex justify-content-end col-sm-1\")])[" + i + "]"));
-			Utility.scrollIntoView(driverR, js, MinimizeBtn2);
-			MinimizeBtn2.click();
-			WebElement addTaskBtn = driverR.findElement(By.xpath("(//*[contains(text(),'Add New Task')])["+i+"]"));
-			Utility.scrollIntoView(driverR, js, addTaskBtn);
-			wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
-			wait.until(ExpectedConditions.elementToBeClickable(addTaskBtn));
-			Utility.safeClick(driverR, js, addTaskBtn);
+	   for(int i =0 ;i< tsp.gettaskButtonSize();i++)
+	   {
+		tsp.add_allTask(i);
 
 			att.SelectSubProcess();
 			att.ClickonActivity();
@@ -270,23 +229,11 @@ public void shouldNotsubmitTimesheetwhenTaskdurationLesser() throws IOException,
 //			Utility.scrollIntoView(driverR, js, MinimizeBtn3);
 //			MinimizeBtn3.click();
 //			Utility.waitForSeconds(2);
-		} catch (ElementClickInterceptedException e) {
-			System.out.println("Add Task Click Intercepted: Retrying via JS click.");
-			js.executeScript("arguments[0].click();", driverR.findElement(By.xpath("(//*[contains(text(),'Add Task')])[1]")));
-		}
 	}
 
-	for (int i = taskButtons.size(); i <= taskButtons.size(); i++) {
-		try {
-			WebElement MinimizeBtn2 = driverR.findElement(By.xpath("(//*[contains(@class,\"d-flex justify-content-end col-sm-1\")])[" + i + "]"));
-			Utility.scrollIntoView(driverR, js, MinimizeBtn2);
-			MinimizeBtn2.click();
-			WebElement addTaskBtn = driverR.findElement(By.xpath("(//*[contains(text(),'Add New Task')])["+i+"]"));
-			Utility.scrollIntoView(driverR, js, addTaskBtn);
-			wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
-			wait.until(ExpectedConditions.elementToBeClickable(addTaskBtn));
-			Utility.safeClick(driverR, js, addTaskBtn);
-
+		for (int i = tsp.gettaskButtonSize()-1; i <= tsp.gettaskButtonSize()-1; i++) {
+			try {
+			tsp.add_allTask(i);
 			att.SelectSubProcess();
 			att.ClickonActivity();
 			att.SendTaskDescription();
@@ -318,25 +265,9 @@ public void shouldNotsubmitTimesheetwhenTaskdurationLesser() throws IOException,
 	// Submit timesheet
 	try {
 		
-		WebElement submitBtn = Utility.waitForElementToBeClickable(driverR, By.xpath("//button[normalize-space()='Submit Timesheet']"), 10);
-		js = (JavascriptExecutor)driverR;
-		Utility.scrollIntoView(driverR, js, submitBtn);
-		Utility.showCallout2("Click on Submit Button ", submitBtn);
-		Utility.waitForSeconds(1);
-		Utility.safeClick(driverR, js, submitBtn);
-		Utility.waitForSeconds(2);
-		Log.info("Script click on Submit Button");
-
-		WebElement confirmSubmit = Utility.waitForElementToBeClickable(driverR, By.xpath("//button[normalize-space()='Submit']"), 10);
-		Utility.scrollIntoView(driverR, js, confirmSubmit);
-		Utility.showCallout("Click on Confirm Button Using Automation Script", confirmSubmit);
-		Utility.highlightElement(confirmSubmit);
-		Utility.safeClick(driverR, js, confirmSubmit);
-		Utility.waitForSeconds(2);
-		System.out.println("✅ Timesheet submitted for week " + 2);
-
-        WebElement confirmMsg = driverR.findElement(By.xpath("//*[contains(text(),'Task hours per timesheet must be within 15 minutes of effective working hours.')]"));
-        String ActualTimesheetSuccesful = confirmMsg.getText();
+		tsp.clickOnSubmitButton();
+        tsp.clickOnConfirmButton();       
+        String ActualTimesheetSuccesful = tsp.getconfirmMsg();
         System.out.println("Timesheet submission Succesful Message :-> " + ActualTimesheetSuccesful);
         String ExpectTimesheetSuccesful ="Task hours per timesheet must be within 15 minutes of effective working hours.";
         sf.assertEquals(ActualTimesheetSuccesful, ExpectTimesheetSuccesful);

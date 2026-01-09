@@ -26,7 +26,7 @@
       <span class="top-banner-title-font">Test results</span>
       <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
       <br/>
-      <span class="top-banner-font-1">1 suite</span>
+      <span class="top-banner-font-1">1 suite, 1 failed test</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -40,7 +40,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" panel-name="suite-Suite" class="navigator-link">
-              <span class="suite-name border-passed">Suite</span>
+              <span class="suite-name border-failed">Suite</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -93,7 +93,21 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">5 methods,   5 passed</span>
+                    <span class="method-stats">2 methods, 1 failed,   1 passed</span>
+                  </li>
+                  <li>
+                    <span class="method-list-title failed">Failed methods</span>
+                    <span class="show-or-hide-methods failed">
+                      <a href="#" panel-name="suite-Suite" class="hide-methods failed suite-Suite"> (hide)</a> <!-- hide-methods failed suite-Suite -->
+                      <a href="#" panel-name="suite-Suite" class="show-methods failed suite-Suite"> (show)</a> <!-- show-methods failed suite-Suite -->
+                    </span>
+                    <div class="method-list-content failed suite-Suite">
+                      <span>
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Suite" title="com.cms.testcases.DashboardTest" class="method navigator-link" hash-for-method="ValidateUserStatusOnDashboard">ValidateUserStatusOnDashboard</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content failed suite-Suite -->
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -105,26 +119,6 @@
                       <span>
                         <img src="passed.png" width="3%"/>
                         <a href="#" panel-name="suite-Suite" title="com.cms.testcases.DashboardTest" class="method navigator-link" hash-for-method="DeleteTestUserRecord">DeleteTestUserRecord</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Suite" title="com.cms.testcases.DashboardTest" class="method navigator-link" hash-for-method="ValidateUser">ValidateUser</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Suite" title="com.cms.testcases.DashboardTest" class="method navigator-link" hash-for-method="ValidateUserClockin">ValidateUserClockin</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Suite" title="com.cms.testcases.DashboardTest" class="method navigator-link" hash-for-method="ValidateUserDashboardstatusFunctionality">ValidateUserDashboardstatusFunctionality</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Suite" title="com.cms.testcases.DashboardTest" class="method navigator-link" hash-for-method="ValidateUserStatusChangeonDashboard">ValidateUserStatusChangeonDashboard</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-Suite -->
@@ -139,6 +133,27 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-Suite" class="panel Suite">
+          <div class="suite-Suite-class-failed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="failed.png"/>
+              <span class="class-name">com.cms.testcases.DashboardTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="ValidateUserStatusOnDashboard">
+                  </a> <!-- ValidateUserStatusOnDashboard -->
+                  <span class="method-name">ValidateUserStatusOnDashboard</span>
+                  <div class="stack-trace">java.lang.AssertionError: The following asserts failed:
+	expected [Welcome, AutomationTesting] but found [Welcome, AutomationTesting!]
+	at com.cms.testcases.DashboardTest.ValidateUserStatusOnDashboard(DashboardTest.java:117)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+... Removed 27 stack frames
+</div> <!-- stack-trace -->
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Suite-class-failed -->
           <div class="suite-Suite-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
@@ -150,34 +165,6 @@
                   <a name="DeleteTestUserRecord">
                   </a> <!-- DeleteTestUserRecord -->
                   <span class="method-name">DeleteTestUserRecord</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="ValidateUser">
-                  </a> <!-- ValidateUser -->
-                  <span class="method-name">ValidateUser</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="ValidateUserClockin">
-                  </a> <!-- ValidateUserClockin -->
-                  <span class="method-name">ValidateUserClockin</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="ValidateUserDashboardstatusFunctionality">
-                  </a> <!-- ValidateUserDashboardstatusFunctionality -->
-                  <span class="method-name">ValidateUserDashboardstatusFunctionality</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="ValidateUserStatusChangeonDashboard">
-                  </a> <!-- ValidateUserStatusChangeonDashboard -->
-                  <span class="method-name">ValidateUserStatusChangeonDashboard</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -238,27 +225,15 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(5);
+data.addRows(2);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'ValidateUserClockin')
+data.setCell(0, 1, 'ValidateUserStatusOnDashboard')
 data.setCell(0, 2, 'com.cms.testcases.DashboardTest')
-data.setCell(0, 3, 20820);
+data.setCell(0, 3, 66169);
 data.setCell(1, 0, 1)
-data.setCell(1, 1, 'ValidateUserDashboardstatusFunctionality')
+data.setCell(1, 1, 'DeleteTestUserRecord')
 data.setCell(1, 2, 'com.cms.testcases.DashboardTest')
-data.setCell(1, 3, 16314);
-data.setCell(2, 0, 2)
-data.setCell(2, 1, 'ValidateUserStatusChangeonDashboard')
-data.setCell(2, 2, 'com.cms.testcases.DashboardTest')
-data.setCell(2, 3, 16022);
-data.setCell(3, 0, 3)
-data.setCell(3, 1, 'ValidateUser')
-data.setCell(3, 2, 'com.cms.testcases.DashboardTest')
-data.setCell(3, 3, 12489);
-data.setCell(4, 0, 4)
-data.setCell(4, 1, 'DeleteTestUserRecord')
-data.setCell(4, 2, 'com.cms.testcases.DashboardTest')
-data.setCell(4, 3, 2925);
+data.setCell(1, 3, 4150);
 window.suiteTableData['Suite']= { tableData: data, tableDiv: 'times-div-Suite'}
 return data;
 }
@@ -296,27 +271,17 @@ return data;
               </div> <!-- configuration-class before -->
               <div class="test-method">
                 <span class="method-name">DeleteTestUserRecord</span>
-                <span class="method-start">6314 ms</span>
+                <span class="method-start">7211 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
-                <span class="method-name">ValidateUser</span>
-                <span class="method-start">9243 ms</span>
-              </div> <!-- test-method -->
-              <div class="test-method">
-                <span class="method-name">ValidateUserDashboardstatusFunctionality</span>
-                <span class="method-start">21732 ms</span>
-              </div> <!-- test-method -->
-              <div class="test-method">
-                <span class="method-name">ValidateUserClockin</span>
-                <span class="method-start">38051 ms</span>
-              </div> <!-- test-method -->
-              <div class="test-method">
-                <span class="method-name">ValidateUserStatusChangeonDashboard</span>
-                <span class="method-start">58874 ms</span>
+                <img src="failed.png">
+                </img>
+                <span class="method-name">ValidateUserStatusOnDashboard</span>
+                <span class="method-start">11365 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-class after">
                 <span class="method-name">closebrowser</span>
-                <span class="method-start">74911 ms</span>
+                <span class="method-start">77543 ms</span>
               </div> <!-- configuration-class after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

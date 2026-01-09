@@ -227,8 +227,7 @@ public class EnterpriseLeval_TimesheetApproval_TaskHrLesser extends BaseTest {
 				Utility.scrollIntoView(driverR, js, MinimizeBtn2);
 				MinimizeBtn2.click();
 				WebElement addTaskBtn = driverR.findElement(By.xpath("(//*[contains(text(),'Add New Task')])["+i+"]"));
-				Utility.scrollIntoView(driverR, js, addTaskBtn);
-				wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
+				Utility.scrollIntoView(driverR, js, addTaskBtn);		
 				wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
 				wait.until(ExpectedConditions.elementToBeClickable(addTaskBtn));
 				Utility.safeClick(driverR, js, addTaskBtn);
@@ -260,7 +259,6 @@ public class EnterpriseLeval_TimesheetApproval_TaskHrLesser extends BaseTest {
 				MinimizeBtn2.click();
 				WebElement addTaskBtn = driverR.findElement(By.xpath("(//*[contains(text(),'Add New Task')])["+i+"]"));
 				Utility.scrollIntoView(driverR, js, addTaskBtn);
-				wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
 				wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
 				wait.until(ExpectedConditions.elementToBeClickable(addTaskBtn));
 				Utility.safeClick(driverR, js, addTaskBtn);

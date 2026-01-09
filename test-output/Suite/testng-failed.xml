@@ -7,15 +7,13 @@
   <test thread-count="5" name="Test(failed)">
     <parameter name="browser" value="chrome"/>
     <classes>
-      <class name="com.cms.testcases.ApprovalRegularizationTest">
+      <class name="com.cms.testcases.DashboardTest">
         <methods>
+          <include name="ValidateUserStatusOnDashboard"/>
           <include name="closebrowser"/>
           <include name="openUrl"/>
-          <include name="ValidateApproveRegularizationFunctionality"/>
-          <include name="LaunchUrl"/>
-          <include name="closeURL"/>
         </methods>
-      </class> <!-- com.cms.testcases.ApprovalRegularizationTest -->
+      </class> <!-- com.cms.testcases.DashboardTest -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->
