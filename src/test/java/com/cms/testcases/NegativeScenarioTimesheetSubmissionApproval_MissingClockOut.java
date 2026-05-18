@@ -252,7 +252,7 @@ public class NegativeScenarioTimesheetSubmissionApproval_MissingClockOut extends
 					
 					tsp.clickOnSubmitButton();
 			        tsp.clickOnConfirmButton();       
-			        String ActualTimesheetSuccesful = tsp.getconfirmMsg();
+			        String ActualTimesheetSuccesful = tsp.getconfirmMsg2();
 			        System.out.println("Timesheet submission Succesful Message :-> " + ActualTimesheetSuccesful);
 			        driverR.navigate().refresh();
 			        Utility.waitForSeconds(2);

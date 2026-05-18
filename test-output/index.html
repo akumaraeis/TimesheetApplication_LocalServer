@@ -51,7 +51,7 @@
               <ul>
                 <li>
                   <a href="#" panel-name="test-xml-Suite" class="navigator-link ">
-                    <span>C:\Users\ATLAS-ADMIN\eclipse-workspace\AEIS_TimeSheet_Project(Local)\src\test\resources\RegressionSuiteFor_Dashboard.xml</span>
+                    <span>C:\Users\ATLAS-ADMIN\eclipse-workspace\AEIS_TimeSheet_Project(Local)\src\test\resources\RegressionSuitefor_TimesheetSubmissionScenario3(MissingTask).xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -104,7 +104,7 @@
                     <div class="method-list-content failed suite-Suite">
                       <span>
                         <img src="failed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Suite" title="com.cms.testcases.DashboardTest" class="method navigator-link" hash-for-method="ValidateUserStatusOnDashboard">ValidateUserStatusOnDashboard</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Suite" title="com.cms.testcases.NegativeScenarioTimesheetSubmissionApproval_MissingTask" class="method navigator-link" hash-for-method="ValidateTimesheetSubmissionFunctionality">ValidateTimesheetSubmissionFunctionality</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content failed suite-Suite -->
@@ -118,7 +118,7 @@
                     <div class="method-list-content passed suite-Suite">
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Suite" title="com.cms.testcases.DashboardTest" class="method navigator-link" hash-for-method="DeleteTestUserRecord">DeleteTestUserRecord</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Suite" title="com.cms.testcases.NegativeScenarioTimesheetSubmissionApproval_MissingTask" class="method navigator-link" hash-for-method="DeleteTestUserRecord">DeleteTestUserRecord</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-Suite -->
@@ -136,19 +136,51 @@
           <div class="suite-Suite-class-failed">
             <div class="main-panel-header rounded-window-top">
               <img src="failed.png"/>
-              <span class="class-name">com.cms.testcases.DashboardTest</span>
+              <span class="class-name">com.cms.testcases.NegativeScenarioTimesheetSubmissionApproval_MissingTask</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="ValidateUserStatusOnDashboard">
-                  </a> <!-- ValidateUserStatusOnDashboard -->
-                  <span class="method-name">ValidateUserStatusOnDashboard</span>
-                  <div class="stack-trace">java.lang.AssertionError: The following asserts failed:
-	expected [Welcome, AutomationTesting] but found [Welcome, AutomationTesting!]
-	at com.cms.testcases.DashboardTest.ValidateUserStatusOnDashboard(DashboardTest.java:117)
+                  <a name="ValidateTimesheetSubmissionFunctionality">
+                  </a> <!-- ValidateTimesheetSubmissionFunctionality -->
+                  <span class="method-name">ValidateTimesheetSubmissionFunctionality</span>
+                  <div class="stack-trace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator &apos;By.xpath: //input[@placeholder=&apos;Enter Username&apos;]&apos; (tried for 300 second(s) with 500 milliseconds interval)
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:230)
+	at com.cms.utility.Utility.ExplicitWait(Utility.java:81)
+	at com.cms.pageObjects.LoginPage.SendUserName(LoginPage.java:92)
+	at com.cms.testcases.NegativeScenarioTimesheetSubmissionApproval_MissingTask.ValidateTimesheetSubmissionFunctionality(NegativeScenarioTimesheetSubmissionApproval_MissingTask.java:111)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-... Removed 27 stack frames
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//input[@placeholder=&apos;Enter Username&apos;]&quot;}
+  (Session info: chrome=147.0.7727.138)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Build info: version: &apos;4.11.0&apos;, revision: &apos;040bc5406b&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;21.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [773ce1a09d058335b4c51ad36a513363, findElement {using=xpath, value=//input[@placeholder=&apos;Enter Username&apos;]}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 147.0.7727.138, chrome: {chromedriverVersion: 147.0.7727.117 (474cc805edd..., userDataDir: C:\Users\ATLAS-~1\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:65020}, goog:processID: 15428, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:65020/devtoo..., se:cdpVersion: 147.0.7727.138, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 773ce1a09d058335b4c51ad36a513363
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:191)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:196)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:171)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:518)
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:165)
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:355)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:349)
+	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:68)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
+	at jdk.proxy2/jdk.proxy2.$Proxy32.isDisplayed(Unknown Source)
+	at org.openqa.selenium.support.ui.ExpectedConditions.elementIfVisible(ExpectedConditions.java:304)
+	at org.openqa.selenium.support.ui.ExpectedConditions.access$000(ExpectedConditions.java:37)
+	at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:290)
+	at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:287)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:205)
+	... 29 more
+... Removed 28 stack frames
 </div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
@@ -157,7 +189,7 @@
           <div class="suite-Suite-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
-              <span class="class-name">com.cms.testcases.DashboardTest</span>
+              <span class="class-name">com.cms.testcases.NegativeScenarioTimesheetSubmissionApproval_MissingTask</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
@@ -172,7 +204,7 @@
         </div> <!-- panel Suite -->
         <div panel-name="test-xml-Suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">C:\Users\ATLAS-ADMIN\eclipse-workspace\AEIS_TimeSheet_Project(Local)\src\test\resources\RegressionSuiteFor_Dashboard.xml</span>
+            <span class="header-content">C:\Users\ATLAS-ADMIN\eclipse-workspace\AEIS_TimeSheet_Project(Local)\src\test\resources\RegressionSuitefor_TimesheetSubmissionScenario3(MissingTask).xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -185,7 +217,7 @@
   &lt;test thread-count=&quot;5&quot; name=&quot;Test&quot;&gt;
     &lt;parameter name=&quot;browser&quot; value=&quot;chrome&quot;/&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;com.cms.testcases.DashboardTest&quot;/&gt;
+      &lt;class name=&quot;com.cms.testcases.NegativeScenarioTimesheetSubmissionApproval_MissingTask&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Test --&gt;
 &lt;/suite&gt; &lt;!-- Suite --&gt;
@@ -227,18 +259,18 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(2);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'ValidateUserStatusOnDashboard')
-data.setCell(0, 2, 'com.cms.testcases.DashboardTest')
-data.setCell(0, 3, 66169);
+data.setCell(0, 1, 'ValidateTimesheetSubmissionFunctionality')
+data.setCell(0, 2, 'com.cms.testcases.NegativeScenarioTimesheetSubmissionApproval_MissingTask')
+data.setCell(0, 3, 336673);
 data.setCell(1, 0, 1)
 data.setCell(1, 1, 'DeleteTestUserRecord')
-data.setCell(1, 2, 'com.cms.testcases.DashboardTest')
-data.setCell(1, 3, 4150);
+data.setCell(1, 2, 'com.cms.testcases.NegativeScenarioTimesheetSubmissionApproval_MissingTask')
+data.setCell(1, 3, 2811);
 window.suiteTableData['Suite']= { tableData: data, tableDiv: 'times-div-Suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 1 minutes</span>
+              <span class="suite-total-time">Total running time: 5 minutes</span>
               <div id="times-div-Suite">
               </div> <!-- times-div-Suite -->
             </div> <!-- times-div -->
@@ -264,24 +296,24 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">com.cms.testcases.DashboardTest</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">com.cms.testcases.NegativeScenarioTimesheetSubmissionApproval_MissingTask</div> <!-- chronological-class-name -->
               <div class="configuration-class before">
                 <span class="method-name">openUrl(chrome)</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-class before -->
               <div class="test-method">
                 <span class="method-name">DeleteTestUserRecord</span>
-                <span class="method-start">7211 ms</span>
+                <span class="method-start">5153 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
                 <img src="failed.png">
                 </img>
-                <span class="method-name">ValidateUserStatusOnDashboard</span>
-                <span class="method-start">11365 ms</span>
+                <span class="method-name">ValidateTimesheetSubmissionFunctionality</span>
+                <span class="method-start">7969 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-class after">
                 <span class="method-name">closebrowser</span>
-                <span class="method-start">77543 ms</span>
+                <span class="method-start">344658 ms</span>
               </div> <!-- configuration-class after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

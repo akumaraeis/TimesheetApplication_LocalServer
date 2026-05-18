@@ -366,9 +366,9 @@ public class PositiveScenarioTimesheetSubmissionApproval extends BaseTest {
 
 			            System.out.println("✅ Timesheet submitted for week " + (i + 1));
 
-			            WebElement confirmMsg = driverR.findElement(By.xpath("//*[contains(text(),'Approved successfully!')]"));
-			            Utility.highlightElement(confirmMsg);
-			            String ActualTimesheetApproveMsg = confirmMsg.getText();
+//			            WebElement confirmMsg = driverR.findElement(By.xpath("//*[contains(text(),'Approved successfully!')]"));
+//			            Utility.highlightElement(confirmMsg);                                      
+			            String ActualTimesheetApproveMsg = tsp.GetapproveTimesheetMsg();
 			            System.out.println("Timesheet submission Successf2ul Message :-> " + ActualTimesheetApproveMsg);
 
 			            ExpectTimesheetApproveMsg = "Approved successfully!";
@@ -427,7 +427,7 @@ public class PositiveScenarioTimesheetSubmissionApproval extends BaseTest {
 	        .header("Authorization", "Token " + token)
 	        .body(data)
 	        .when()
-	        .post("http://192.168.1.10:8085/api/clock-entries/action-test/")
+	        .post("http://192.168.1.10:8085/api/clock-entries/action/")
 	        .then()
 	        .statusCode(200)
 	        .log().all();
@@ -445,7 +445,7 @@ public class PositiveScenarioTimesheetSubmissionApproval extends BaseTest {
 	        .header("Authorization", "Token " + token)
 	        .body(data)
 	        .when()
-	        .post("http://192.168.1.10:8085/api/clock-entries/action-test/")
+	        .post("http://192.168.1.10:8085/api/clock-entries/action/")
 	        .then()
 	        .statusCode(200)
 	        .log().all();

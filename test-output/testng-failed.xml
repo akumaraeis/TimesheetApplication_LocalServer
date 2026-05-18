@@ -7,13 +7,13 @@
   <test thread-count="5" name="Test(failed)">
     <parameter name="browser" value="chrome"/>
     <classes>
-      <class name="com.cms.testcases.DashboardTest">
+      <class name="com.cms.testcases.NegativeScenarioTimesheetSubmissionApproval_MissingTask">
         <methods>
-          <include name="ValidateUserStatusOnDashboard"/>
           <include name="closebrowser"/>
           <include name="openUrl"/>
+          <include name="ValidateTimesheetSubmissionFunctionality"/>
         </methods>
-      </class> <!-- com.cms.testcases.DashboardTest -->
+      </class> <!-- com.cms.testcases.NegativeScenarioTimesheetSubmissionApproval_MissingTask -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

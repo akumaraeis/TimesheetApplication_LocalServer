@@ -33,7 +33,7 @@ import com.cms.utility.Utility;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
-public class EnterprisesStructuredNegativeScenarioTimesheetApproval_MissingTask extends BaseTest {
+public class ModifiedScenarioTimesheetSubmissionApproval extends BaseTest {
 	public SoftAssert sf;
 	public SoftAssert sf2;
 	public JavascriptExecutor js;
@@ -73,6 +73,7 @@ public class EnterprisesStructuredNegativeScenarioTimesheetApproval_MissingTask 
 		//		Thread.sleep(2000);
 		LaunchUrl();
 	}
+	
 	@Test(priority=1)
 	public void DeleteTestUserRecord() throws InterruptedException, IOException
 	{
@@ -92,18 +93,11 @@ public class EnterprisesStructuredNegativeScenarioTimesheetApproval_MissingTask 
 
 	}
 
+
 	@Test(priority=2)
-	public void shouldNotallowTimesheetSubmissionWhen_MissingTask() throws IOException, InterruptedException
+	public void ValidateTimesheetSubmissionFunctionality() throws InterruptedException, IOException
 	{
 		sf = new SoftAssert();
-		LoginAsUser();
-		creatingAttendanceForPreviousweek();
-		addingTasktoAvailableWeekEntries();
-		validatingTimesheetSubmissionError();
-	}
-
-	public void LoginAsUser() throws IOException, InterruptedException 
-	{
 		Utility.showTooltip("Executing Automation Script to Check Timesheet Submission by User and Approval Functionality by Line Manager.");
 
 		Utility.waitForSeconds(5);
@@ -127,16 +121,14 @@ public class EnterprisesStructuredNegativeScenarioTimesheetApproval_MissingTask 
 		String ActualProfileName=lp.GetProfileName();
 		String ExpectedProfileName ="Welcome, AutomationTesting!";
 		Log.info("Profile Name is verified");
-		sf.assertEquals(ActualProfileName, ExpectedProfileName);
 		
-	}
-	
-	public void creatingAttendanceForPreviousweek() throws InterruptedException
-	{
 		String str =  "Welcome, AutomationTesting";
 		ActualUserName = str.replace("Welcome, ", "");
 		System.out.println(ActualUserName);
-		tsp.ClickonTimesheetSubmission();	
+			
+		sf.assertEquals(ActualProfileName, ExpectedProfileName);
+		tsp.ClickonTimesheetSubmission();
+	
 		Utility.waitForSeconds(3);
 		Utility.showTooltip("Step 2:-> Selecting Respective Week to Validate Timesheet submission Using Automation Script");
         Thread.sleep(5000);
@@ -200,75 +192,38 @@ public class EnterprisesStructuredNegativeScenarioTimesheetApproval_MissingTask 
 		    Utility.waitForSeconds(2);
 		    Log.info("Timesheet entry created successfully for date → " + dateStr);
 		}
-		
-	}
-	
-
-	public void addingTasktoAvailableWeekEntries() throws InterruptedException
-	{
-        System.out.println("now script will start adding task");
-        Utility.waitForSeconds(2);
-		// Add task and submit timesheet
-        driverR.navigate().refresh();
-		Utility.waitForSeconds(2);
-		String weekXpath = "//div[contains(@class,'m-1 px-1 py-0 row')]";
-		WebElement refreshedWeek = driverR.findElement(By.xpath(weekXpath));
-		js = (JavascriptExecutor)driverR;
-		Utility.scrollIntoView(driverR, js, refreshedWeek);
-		Utility.safeClick(driverR, js, refreshedWeek);
-		System.out.println("now script will click on week");
-
-//        driverR.navigate().refresh();
-        Thread.sleep(2000);
-		List<WebElement> taskButtons = driverR.findElements(By.xpath("//*[contains(text(),'Add New Task')]"));
-		System.out.println("Total Add Task buttons: " + taskButtons.size());
-
-//		Utility.showTooltip("Step 4:-> After Creating weekly TimesheetEntry,Now adding task to all entry using Automation Script");
-//		WebElement MinimizeBtn = driverR.findElement(By.xpath("(//*[contains(@class,\"d-flex justify-content-end col-sm-1\")])[1]"));
-//		Utility.scrollIntoView(driverR, js, MinimizeBtn);
-//		MinimizeBtn.click();
-
-		for (int i = 1; i < taskButtons.size(); i++) {
-			try {
-				WebElement MinimizeBtn2 = driverR.findElement(By.xpath("(//*[contains(@class,\"d-flex justify-content-end col-sm-1\")])[" + i + "]"));
-				Utility.scrollIntoView(driverR, js, MinimizeBtn2);
-				MinimizeBtn2.click();
-				WebElement addTaskBtn = driverR.findElement(By.xpath("(//*[contains(text(),'Add New Task')])["+i+"]"));
-				Utility.scrollIntoView(driverR, js, addTaskBtn);
-				wait = new WebDriverWait(driverR,Duration.ofSeconds(10));
-				wait.until(ExpectedConditions.elementToBeClickable(addTaskBtn));
-				Utility.safeClick(driverR, js, addTaskBtn);
-
-				att.SelectSubProcess();
-				att.ClickonActivity();
-				att.SendTaskDescription();
-				att.SendTaskDuration();
-				att.ClickonTaskSubmit();
-				Utility.waitForSeconds(1);
-
-				WebElement SuccessfulMsg = driverR.findElement(By.xpath("//*[contains(text(),'Task created successfully!')]"));
-				Utility.showCallout2("Validation Checks Applied on Task Submission Alert.", SuccessfulMsg);
-				String ActualSuccessfulMsg = SuccessfulMsg.getText();
-				String ExpectSuccessfulMsg = "Task created successfully!";
-				sf.assertEquals(ActualSuccessfulMsg, ExpectSuccessfulMsg);
-				Log.info("Task added Successfully to Timesheet for Respective date");
-
-//				WebElement MinimizeBtn3 = driverR.findElement(By.xpath("(//*[contains(@class,'accordion-button')])[1]"));
-//				Utility.scrollIntoView(driverR, js, MinimizeBtn3);
-//				MinimizeBtn3.click();
-//				Utility.waitForSeconds(2);
-			} catch (ElementClickInterceptedException e) {
-				System.out.println("Add Task Click Intercepted: Retrying via JS click.");
-				js.executeScript("arguments[0].click();", driverR.findElement(By.xpath("(//*[contains(text(),'Add Task')])[1]")));
-			}
-		}
-		
-	}
-
-	public void validatingTimesheetSubmissionError() throws InterruptedException, IOException
-	{
+		        System.out.println("now script will start adding task");
+		        Utility.waitForSeconds(2);
+				// Add task and submit timesheet
+		        driverR.navigate().refresh();
+				Utility.waitForSeconds(2);
+				tsp.clickOnSelectedWeek();
+            try
+            {
 				Utility.showTooltip("Step 5:-> After adding Task, submitting this weekly Timesheet using Automation Script");
 				// Submit timesheet
+				System.out.println("task button size :->"+tsp.gettaskButtonSize());
+				
+         	   for(int i =0 ;i< tsp.gettaskButtonSize();i++)
+         	   {
+         		tsp.add_allTask(i);
+   				att.SelectSubProcess();
+   				att.ClickonActivity();
+   				att.SendTaskDescription();
+   				att.SendTaskDuration();
+   				att.ClickonTaskSubmit();
+   				Utility.waitForSeconds(1);
+
+   				WebElement SuccessfulMsg = driverR.findElement(By.xpath("//*[contains(text(),'Task created successfully!')]"));
+   				Utility.showCallout2("Validation Checks Applied on Task Submission Alert.", SuccessfulMsg);
+   				String ActualSuccessfulMsg = SuccessfulMsg.getText();
+   				String ExpectSuccessfulMsg = "Task created successfully!";
+   				SoftAssert sf = new SoftAssert();
+   				sf.assertEquals(ActualSuccessfulMsg, ExpectSuccessfulMsg);
+   				Log.info("Task added Successfully to Timesheet for Respective date");
+
+         	   }
+     
 				try {
 //					WebElement actionsBtn = Utility.waitForElementToBeClickable(driverR, By.xpath("//button[normalize-space()='Actions']"), 10);
 //					Utility.scrollIntoView(driverR, js, actionsBtn);
@@ -278,32 +233,18 @@ public class EnterprisesStructuredNegativeScenarioTimesheetApproval_MissingTask 
 //					Utility.waitForSeconds(2);
 //					Log.info("Script click on Action Button");
 					
-					WebElement submitBtn = Utility.waitForElementToBeClickable(driverR, By.xpath("//button[normalize-space()='Submit Timesheet']"), 10);
-					Utility.scrollIntoView(driverR, js, submitBtn);
-					Utility.showCallout2("Click on Submit Button ", submitBtn);
-					Utility.waitForSeconds(1);
-//               	Utility.highlightElement(submitBtn);
-					Utility.safeClick(driverR, js, submitBtn);
-					Utility.waitForSeconds(2);
-					Log.info("Script click on Submit Button");
-
-					WebElement confirmSubmit = Utility.waitForElementToBeClickable(driverR, By.xpath("//button[normalize-space()='Submit']"), 10);
-					Utility.scrollIntoView(driverR, js, confirmSubmit);
-					Utility.showCallout("Click on Confirm Button Using Automation Script", confirmSubmit);
-					Utility.highlightElement(confirmSubmit);
-					Utility.safeClick(driverR, js, confirmSubmit);
-					Utility.waitForSeconds(2);
-					System.out.println("✅ Timesheet submitted for week " + 2);
-
-		            WebElement confirmMsg = driverR.findElement(By.xpath("//*[contains(text(),'Some timesheet entries have no tasks logged. Please add at least one task per entry.')]"));
-		            String ActualTimesheetSuccesful = confirmMsg.getText();
-		            Utility.highlightElement(confirmMsg);
-		            System.out.println("Timesheet submission Succesful Message :-> " + ActualTimesheetSuccesful);
-		            String ExpectTimesheetSuccesful ="Some timesheet entries have no tasks logged. Please add at least one task per entry.";
-		            sf.assertEquals(ActualTimesheetSuccesful, ExpectTimesheetSuccesful);
-		            // Check final status after submission
-		            driverR.navigate().refresh();
-		            Utility.waitForSeconds(2);
+					tsp.clickOnSubmitButton();
+			        tsp.clickOnConfirmButton();       
+//			        String ActualTimesheetSuccesful = tsp.getconfirmMsg();
+//			        System.out.println("Timesheet submission Succesful Message :-> " + ActualTimesheetSuccesful);
+//			        driverR.navigate().refresh();
+//			        Utility.waitForSeconds(2);
+//
+//		
+//					String ExpectTimesheetSuccesful ="Timesheet submitted successfully!";
+//					sf.assertEquals(ActualTimesheetSuccesful, ExpectTimesheetSuccesful);
+//					Log.info("Timesheet Submitted for this Respective week Successfully");
+					// Check final status after submission
 
 //					WebElement finalWeek = Utility.waitForElementToBeClickable(driverR, By.xpath(weekXPath), 10);
 //					Utility.scrollIntoView(driverR, js, finalWeek);
@@ -321,8 +262,147 @@ public class EnterprisesStructuredNegativeScenarioTimesheetApproval_MissingTask 
 					System.out.println("⚠️ Error during final submission: " + e.getMessage());
 
 				}
-		
+			} catch (ElementClickInterceptedException e) {
+				System.out.println("Add Task Click Intercepted: Retrying via JS click.");
+				js.executeScript("arguments[0].click();", driverR.findElement(By.xpath("(//*[contains(text(),'Add Task')])[1]")));
+			}
+            
+		sf.assertAll();
 	}
+
+		
+
+	@Test(priority=3)
+	public void ValidateApproveTimesheetReportFunctionality() throws InterruptedException, IOException
+	{
+	sf = new SoftAssert();
+	Utility.showTooltip("Executing Automation Script to Check Timesheet Submission by User and Approval Functionality by Line Manager.");
+
+	Utility.waitForSeconds(5);
+	
+	launchLocalUrl();
+	Log.info("Url is launched");
+
+	Utility.showTooltip("Step 1:->After Launching Timesheet Application, Login as User to submit Weekly Timesheet using Automation Script");
+
+	Utility.waitForSeconds(2);
+
+	lp.SendLine_ManagerName();
+	Log.info("input user name");
+	
+	lp.SendAdminPassword();
+	Log.info("input user Password");
+	
+	lp.ClickonLoginBtn();
+	Log.info("Click on Login Button");
+
+	String ActualProfileName=lp.GetProfileName();
+	String ExpectedProfileName ="Welcome, LNM Testuser!";
+	Log.info("Profile Name is verified");
+	
+	String str =  "Welcome, AutomationTesting";
+	ActualUserName = str.replace("Welcome, ", "");
+	System.out.println(ActualUserName);
+
+	sf.assertEquals(ActualProfileName, ExpectedProfileName);
+	tsp.ClickonTimesheetApproval();
+
+	Utility.waitForSeconds(3);
+	Utility.showTooltip("Step 2:-> Selecting Respective Week to Validate Timesheet submission Using Automation Script");
+    Thread.sleep(5000);
+	List<WebElement> allWeeks = driverR.findElements(By.xpath("(//div[contains(@class,'p-1 shadow mb-2 border-secondary bg-gradient week-item card')])"));
+	System.out.println("Total week blocks found: " + allWeeks.size());
+	totalWeeks = allWeeks.size();
+	System.out.println("Total week size so that required for Loop"+ totalWeeks);
+	// API Login
+
+	Utility.showTooltip("Step 7:->After Selecting Respective Week,then select same Timesheet Report Sent by The User using Automation Script ");
+	Utility.waitForSeconds(3);
+	
+	DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM d, yyyy");
+	DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+
+	LocalDate date = LocalDate.parse(startText, inputFormatter);
+	LocalDate weekStartDate = date.minusDays(2);
+
+	String finalDate = weekStartDate.format(outputFormatter);	
+	
+//	outerloop:
+//	for (int index = 2; index <= totalWeeks; index++) {
+		String weekXPath = "//span[contains(text(),'"+finalDate+"')]";
+		WebElement weekElement = driverR.findElement(By.xpath(weekXPath));
+		js = (JavascriptExecutor) driverR;
+		js.executeScript("arguments[0].scrollIntoView(true);", weekElement);
+		Utility.safeClick(driverR, js, weekElement);
+
+		List<WebElement> UserNames = driverR.findElements(
+			    By.xpath("//*[@class=\"m-1 p-1 row\"]//div"));
+			
+
+			for (int i = 0; i < UserNames.size(); i++) {   // ✅ start at 0, size()-1
+			    try {
+			        // Re-fetch each time with explicit wait
+			        WebDriverWait wait = new WebDriverWait(driverR, Duration.ofSeconds(2));
+			        WebElement UserNameElement = wait.until(ExpectedConditions
+			            .visibilityOfElementLocated(By.xpath(
+			                "//*[@class=\"m-1 p-1 row\"]//div[" + (i + 1) + "]" )));
+			        String UserName = UserNameElement.getText();
+			        System.out.println("UserName: " + UserName);
+			        System.out.println("UserName in Timesheet Page: " + UserName);
+			        System.out.println("UserName in Profile Page : " + ActualUserName);
+
+			        if (UserName.equalsIgnoreCase(ActualUserName)) {
+			            // ✅ Found matching user → perform actions
+			            Utility.showTooltip("Step 8:->After selecting same Timesheet Report, approve the timesheet report to validate approval functionality is working fine.");
+			            Utility.safeClick(driverR, js, UserNameElement);
+
+			            tsp.clickOnActionBtn();		         
+			            
+			            tsp.approveTimesheet();
+
+			            tsp.submitcomment();
+
+			            tsp.ClickonconfirmSubmit();
+
+			            System.out.println("✅ Timesheet submitted for week " + (i + 1));
+
+//			            WebElement confirmMsg = driverR.findElement(By.xpath("//*[contains(text(),'Approved successfully!')]"));
+//			            Utility.highlightElement(confirmMsg);                                      
+			            String ActualTimesheetApproveMsg = tsp.GetapproveTimesheetMsg();
+			            System.out.println("Timesheet submission Successf2ul Message :-> " + ActualTimesheetApproveMsg);
+
+			            ExpectTimesheetApproveMsg = "Approved successfully!";
+			            sf.assertEquals(ActualTimesheetApproveMsg, ExpectTimesheetApproveMsg);
+			            Log.info("User Timesheet Approved successf2ully by Line Manager");
+
+//			            break outerloop; // ✅ Exit loop once done
+			        } else {
+			            System.out.println("❌ No Timesheet Submitted for User: " + UserName);
+			        }
+			    } catch (StaleElementReferenceException e) {
+			        System.out.println("⚠️ Retrying stale element at index: " + i);
+			        try {
+			            // ✅ Retry with explicit wait (not just get(i))
+			            WebDriverWait wait = new WebDriverWait(driverR, Duration.ofSeconds(5));
+			            WebElement retryElement = wait.until(ExpectedConditions
+			                .visibilityOfElementLocated(By.xpath(
+			                    "(//div[contains(@class,'px-1 py-2 shadow mb-2 bg-gradient submitted card')]//div[@class='col-4'])[" + (i + 1) + "]"
+			                )));
+			            
+			            System.out.println("UserName (retried): " + retryElement.getText());
+			        } catch (Exception retryEx) {
+			            System.out.println("❌ Retry failed for element at index " + i + ": " + retryEx.getMessage());
+			        }
+			        
+			    }
+				
+			}
+
+	sf.assertAll();
+}
+
+//	}
+
 
 	//	}
 
@@ -347,7 +427,7 @@ public class EnterprisesStructuredNegativeScenarioTimesheetApproval_MissingTask 
 	        .header("Authorization", "Token " + token)
 	        .body(data)
 	        .when()
-	        .post("http://192.168.1.10:8085/api/clock-entries/action-test/")
+	        .post("http://192.168.1.10:8085/api/clock-entries/action/")
 	        .then()
 	        .statusCode(200)
 	        .log().all();
@@ -365,7 +445,7 @@ public class EnterprisesStructuredNegativeScenarioTimesheetApproval_MissingTask 
 	        .header("Authorization", "Token " + token)
 	        .body(data)
 	        .when()
-	        .post("http://192.168.1.10:8085/api/clock-entries/action-test/")
+	        .post("http://192.168.1.10:8085/api/clock-entries/action/")
 	        .then()
 	        .statusCode(200)
 	        .log().all();
@@ -387,7 +467,7 @@ public class EnterprisesStructuredNegativeScenarioTimesheetApproval_MissingTask 
 	        .log().all();
 	}
 
-	//	@AfterMethod
+//		@AfterMethod
 	public void closeURL()
 	{
 		driverR.navigate().to("about:blank");

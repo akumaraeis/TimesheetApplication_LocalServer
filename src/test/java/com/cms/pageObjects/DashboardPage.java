@@ -34,8 +34,8 @@ public class DashboardPage extends BaseTest{
 
 	public static WebDriver driver2;
 	public static JavascriptExecutor js ;
-	 private static String generatedDate = null;
-	 private static String UserName;
+	private static String generatedDate = null;
+	private static String UserName;
 
 	@FindBy(xpath="//*[name()='path' and contains(@d,'M215.103 0')]")
 	private WebElement GoogleLogin ;
@@ -54,7 +54,7 @@ public class DashboardPage extends BaseTest{
 	
 	@FindBy(xpath="//button[normalize-space()='Confirm']")
 	private WebElement ConfirmationBtn ;
-	
+
 	// *********Construction Declaration to initialize Data Member********	
 	public DashboardPage(WebDriver driverR)
 	{
@@ -112,7 +112,6 @@ public class DashboardPage extends BaseTest{
 	public static String convertDateFormat(String date) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-
         LocalDate parsedDate = LocalDate.parse(date, inputFormatter);
         return parsedDate.format(outputFormatter);
     }
@@ -162,6 +161,12 @@ public class DashboardPage extends BaseTest{
 		return ActualProfileName;
 	}
 	
+	  private By userStatus(String UserName) {
+	        return By.xpath(
+	            "//*[contains(text(),'" + UserName + "')]//following::div[3]//span"
+	        );
+	    }
+	  
 	public String ValidateUserDashboardstatusFunctionality() throws InterruptedException, IOException, ParseException
 	{
 
@@ -192,7 +197,7 @@ public class DashboardPage extends BaseTest{
 		
 		Utility.showTooltip("Step 3 :->Now Checked the current status of Respective User on Dashboard");
 		Utility.waitForSeconds(2);
-		String UserStatusText = driver2.findElement(By.xpath("//*[contains(text(),'"+UserName+"')]//following::div[3]//span")).getText();
+		String UserStatusText = driver2.findElement(userStatus(UserName)).getText();
 //		String UserStatusText = tdp.getUserDashboardStatus();
 		System.out.println("On Dashboard , text User Status :->"+UserStatusText);
 		
@@ -260,7 +265,7 @@ public class DashboardPage extends BaseTest{
 		
 		Utility.waitForSeconds(2);
 		
-		String ActualUserStatus = driver2.findElement(By.xpath("//*[contains(text(),'"+UserName+"')]//following::div[3]//span")).getText();
+		String ActualUserStatus = driver2.findElement(userStatus(UserName)).getText();;
 //		String UserStatusText = tdp.getUserDashboardStatus();
 		
 		System.out.println("On Dashboard , text User Status :->"+ActualUserStatus);

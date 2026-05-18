@@ -178,6 +178,12 @@ public class TimesheetSubmissionPage extends BaseTest{
 	@FindBy(xpath ="//*[contains(text(),'Task hours per timesheet must be within 15 minutes of effective working hours.')]")
 	private WebElement confirmMsg ;
 	
+	@FindBy(xpath ="//*[contains(text(),'All timesheets for this week must be clocked out before submission.')]")
+	private WebElement confirmMsg2 ;
+	
+	
+	@FindBy(xpath ="//*[contains(text(),'Some timesheet entries have no tasks logged. Please add at least one task per entry.')]")
+	private WebElement confirmMsg3 ;
 	@FindBy(xpath ="//*[contains(@class,\"d-flex justify-content-end col-sm-1\")]")
 	private List<WebElement> minimizeBtn ;
 	
@@ -195,6 +201,10 @@ public class TimesheetSubmissionPage extends BaseTest{
 	
 	@FindBy(xpath="//a[normalize-space()='Approve Timesheet']")
 	private WebElement approveTimesheet ;
+	
+	@FindBy(xpath="//*[contains(text(),'Approved successfully!')]")
+	private WebElement approveTimesheetMsg ;
+
 	
 	// *********Construction Declaration to initialize Data Member********	
 	//*[contains(text(),'Add New Task')]
@@ -478,6 +488,19 @@ public class TimesheetSubmissionPage extends BaseTest{
 		return confirmText;
 	}
 	
+	public String getconfirmMsg2() throws InterruptedException
+	{
+		Utility.ExplicitWait(confirmMsg2);
+		String confirmText = confirmMsg2.getText();
+		return confirmText;
+	}
+	
+	public String getconfirmMsg3() throws InterruptedException
+	{
+		Utility.ExplicitWait(confirmMsg3);
+		String confirmText = confirmMsg3.getText();
+		return confirmText;
+	}
 	public void ClickonTimesheetApproval() throws InterruptedException
 	{
 		Utility.ExplicitWait(TimesheetApproval);
@@ -509,6 +532,15 @@ public class TimesheetSubmissionPage extends BaseTest{
 		Thread.sleep(2000);
 		return ActualMsg3 ;
 	}
+	public String GetapproveTimesheetMsg() throws InterruptedException
+	{
+		Utility.ExplicitWait(approveTimesheetMsg);
+		String ActualMsg3 = approveTimesheetMsg.getText();
+		System.out.println(" Message received on Timesheet"+ActualMsg3);
+		Thread.sleep(2000);
+		return ActualMsg3 ;
+	}
+	
 	
 	public void clickOnActionBtn()
 	{

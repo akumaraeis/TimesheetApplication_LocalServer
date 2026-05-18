@@ -145,7 +145,7 @@ public class RegularizationPage extends BaseTest{
 		Utility.showCallout("Sending Requested Clockin Time", ClockIn);
 		js = (JavascriptExecutor)driver2;
 		js.executeScript("arguments[0].setAttribute('style','background:yellow;border:2px solid green;')",ClockIn );
-		ClockIn.sendKeys("10:30");
+		ClockIn.sendKeys("10:30AM");
 		Thread.sleep(2000);
 	}
 	
@@ -155,7 +155,7 @@ public class RegularizationPage extends BaseTest{
 		Utility.showCallout("Sending Requested BreakIn Time", BreakIn);
 		js = (JavascriptExecutor)driver2;
 		js.executeScript("arguments[0].setAttribute('style','background:yellow;border:2px solid green;')",BreakIn );
-		BreakIn.sendKeys("14:00");
+		BreakIn.sendKeys("14:00PM");
 		Thread.sleep(2000);
 	}
 	
@@ -165,7 +165,7 @@ public class RegularizationPage extends BaseTest{
 		Utility.showCallout("Sending Requested BreakOut Time", BreakOut);
 		js = (JavascriptExecutor)driver2;
 		js.executeScript("arguments[0].setAttribute('style','background:yellow;border:2px solid green;')",BreakOut );
-		BreakOut.sendKeys("14:30");
+		BreakOut.sendKeys("14:30PM");
 		Thread.sleep(2000);
 	}
 	
@@ -175,7 +175,7 @@ public class RegularizationPage extends BaseTest{
 		Utility.showCallout("Sending Requested ClockOut Time", ClockOut);
 		js = (JavascriptExecutor)driver2;
 		js.executeScript("arguments[0].setAttribute('style','background:yellow;border:2px solid green;')",ClockOut );
-		ClockOut.sendKeys("19:30");
+		ClockOut.sendKeys("19:30PM");
 		Thread.sleep(2000);
 	}
 	

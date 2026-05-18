@@ -186,9 +186,7 @@
 						<suiteXmlFile>src/test/resources/RegressionSuitefor_TimesheetSubmissionScenario2(MissingClockOut).xml</suiteXmlFile>
 						<suiteXmlFile>src/test/resources/RegressionSuitefor_TimesheetSubmissionScenario3(MissingTask).xml</suiteXmlFile>
 						<suiteXmlFile>src/test/resources/RegressionSuitefor_TimesheetSubmissionScenario4(TaskHrMorethanEffective).xml</suiteXmlFile>
-						<suiteXmlFile>src/test/resources/RegressionSuiteFor_TimesheetSubmissionScenario5(taskHrlessthanEffective).xml</suiteXmlFile>
-                       
-							
+						<suiteXmlFile>src/test/resources/RegressionSuiteFor_TimesheetSubmissionScenario5(taskHrlessthanEffective).xml</suiteXmlFile>                       							
                    </suiteXmlFiles>
 					<systemPropertyVariables>
 						<appURL>${url}</appURL>

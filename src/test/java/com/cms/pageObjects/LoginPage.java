@@ -94,6 +94,7 @@ public class LoginPage extends BaseTest{
 		js = (JavascriptExecutor)driver2;
 		js.executeScript("arguments[0].setAttribute('style','background:yellow;border:2px solid green;')",UserName );
 		UserName.sendKeys("AutomationTestUser");
+//		UserName.sendKeys("akumar@ndtatlas.com");
 		Thread.sleep(2000);
 	}
 	
@@ -104,6 +105,7 @@ public class LoginPage extends BaseTest{
 		js = (JavascriptExecutor)driver2;
 		js.executeScript("arguments[0].setAttribute('style','background:yellow;border:2px solid green;')",UserName );
 		UserName.sendKeys("tmptest@test.com");
+		
 		Thread.sleep(2000);
 	}
 	

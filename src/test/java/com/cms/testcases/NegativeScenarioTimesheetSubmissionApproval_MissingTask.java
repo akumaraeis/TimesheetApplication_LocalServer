@@ -208,7 +208,7 @@ public class NegativeScenarioTimesheetSubmissionApproval_MissingTask extends Bas
 //				Utility.scrollIntoView(driverR, js, MinimizeBtn);
 //				MinimizeBtn.click();
 
-	         	   for(int i =0 ;i< tsp.gettaskButtonSize();i++)
+	         	   for(int i =0 ;i< tsp.gettaskButtonSize()-1;i++)
 	         	   {
 	         		tsp.add_allTask(i);
 						att.SelectSubProcess();
@@ -245,7 +245,7 @@ public class NegativeScenarioTimesheetSubmissionApproval_MissingTask extends Bas
 					
 					tsp.clickOnSubmitButton();
 			        tsp.clickOnConfirmButton();       
-			        String ActualTimesheetSuccesful = tsp.getconfirmMsg();
+			        String ActualTimesheetSuccesful = tsp.getconfirmMsg3();
 			        System.out.println("Timesheet submission Succesful Message :-> " + ActualTimesheetSuccesful);
 			        driverR.navigate().refresh();
 			        Utility.waitForSeconds(2);
@@ -265,12 +265,12 @@ public class NegativeScenarioTimesheetSubmissionApproval_MissingTask extends Bas
 //						System.out.println("✅ Submission confirmed. Stopping further processing.");
 //						break; // STOP the main loop
 //					}
-
+		            sf.assertAll();
 				} catch (Exception e) {
 					System.out.println("⚠️ Error during final submission: " + e.getMessage());
 
 				}
-		sf.assertAll();
+		
 	}
 
 	//	}
